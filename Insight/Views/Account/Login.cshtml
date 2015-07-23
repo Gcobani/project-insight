@@ -1,0 +1,59 @@
+﻿@using Insight.Models
+@model LoginViewModel
+
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", @name="formLogin" }))
+{
+    @Html.AntiForgeryToken()
+
+    <br />
+    <div class="row">
+        <div class="container">
+
+            <div class="col-md-3">
+
+            </div>
+
+            <div class="col-md-6">
+                <paper-material elevation="3">
+                    <div class="container" style="text-align:center">
+                        <h3>Login</h3>
+                        <hr />
+                    </div>
+
+                    <div class="container">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <paper-input auto-validate label="Email" type="email" id="Email" name="Email" error-message="Invalid email address! Use the notation 'example@somewhere.com'"></paper-input>
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        <br />
+                        <paper-input label="Password" type="password" id="Password" name="Password"></paper-input>
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        <br />
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(m => m.RememberMe)
+                            @Html.LabelFor(m => m.RememberMe)
+                        </div>
+                        <br />
+                    </div>
+
+                    <div class="container">
+                        <hr />
+                        <paper-button class="pull-left accept-button" style=" width:200px" raised onclick="history.go(-1);">Back</paper-button>
+                        <paper-button class="pull-right accept-button" style="width:200px" raised onclick="document.formLogin.submit();">Login</paper-button>
+                    </div>
+                    <br />
+                </paper-material>
+            </div>
+
+            <div class="col-md-3">
+
+            </div>
+
+        </div>
+    </div>
+
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

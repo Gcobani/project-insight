@@ -1,0 +1,86 @@
+﻿@model Insight.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", @name = "formReg" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="container">
+        <paper-material elevation="3">
+
+            <div class="row">
+                <div class="container" style="text-align:center">
+                    <h3>Register a new account.</h3>
+                    <hr />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="container" style="align-content:center">
+
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            <paper-input label="Name"></paper-input>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            <paper-input label="Surname"></paper-input>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            <paper-input label="Email" type="Email" name="Email" id="Email" auto-validate error-message="Inavlid email address! Use notation 'example@somewhere.com'"></paper-input>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            <paper-input label="Password" id="Password" name="Password" type="Password"></paper-input>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            <paper-input label="Confirm Password" name="ConfirmPassword" id="ConfirmPassword" type="password"></paper-input>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+
+                    <br />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="container">
+                    <hr />
+                    <div class="container">
+                        <paper-button class="pull-left accept-button" raised onclick="history.go(-1);" style="width:300px">Back</paper-button>
+                        <paper-button class="pull-right accept-button" raised onclick="document.formReg.submit();" style="width:300px">Register</paper-button>
+                    </div>
+                </div>
+            </div>
+            <br />
+        </paper-material>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
