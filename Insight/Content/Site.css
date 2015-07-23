@@ -17,6 +17,10 @@ textarea {
     max-width: 280px;
 }
 
+.smooth {
+    border-radius:2px 2px 2px 2px;
+}
+
 /*Fix the footer to the bottom of the page*/
 .footer {
   bottom: 0;
