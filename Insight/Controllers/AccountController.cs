@@ -11,6 +11,13 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Owin;
 using Insight.Models;
+using Emgu.CV;
+using Emgu.CV.CvEnum;
+using Emgu.CV.UI;
+using Emgu.CV.Structure;
+using Emgu.Util;
+using System.IO;
+using System.Drawing;
 
 namespace Insight.Controllers
 {
@@ -86,8 +93,9 @@ namespace Insight.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase picture)
         {
+            //DetectFace(picture);
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
@@ -112,6 +120,56 @@ namespace Insight.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        internal void DetectFace(HttpPostedFileBase picture)
+        {
+            #region preping things
+
+            int numberOfFacesDetected = 0;
+            Image<Bgr, byte> _imageStream;
+            Image<Gray, byte> _grayImageStream;
+            HaarCascade haar;
+            string Date = DateTime.Today.ToShortDateString();
+            string path = "";
+            #endregion
+
+            #region exp
+
+            if (picture != null)
+            {
+                path = Server.MapPath("~/Uploads/Users " + Date + "/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                picture.SaveAs(HttpContext.Server.MapPath("~/Uploads/Users " + Date + "/") + picture.FileName);
+                
+            }
+
+            #endregion
+
+            #region Load the file
+            Image import = Image.FromStream(picture.InputStream);
+            Bitmap bmp; bmp = new Bitmap(path + picture.FileName);
+            _imageStream = new Image<Bgr, byte>(bmp);
+            #endregion
+
+            #region Detect faces
+
+            haar = new HaarCascade(HttpContext.Server.MapPath("~/haarcascades/haarcascade_frontalface_default.xml"));
+            _grayImageStream = _imageStream.Convert<Gray, byte>();
+            var faces = _grayImageStream.DetectHaarCascade(haar, 1.1, 25, HAAR_DETECTION_TYPE.DO_CANNY_PRUNING, new Size(25, 25))[0];
+            numberOfFacesDetected = faces.Length;
+
+            if(numberOfFacesDetected != 1)
+            { ModelState.AddModelError("picture", "No faces detected or too many faces detected please use another image"); }
+            else
+            {
+
+            }
+
+            #endregion
         }
 
         //

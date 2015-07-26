@@ -4,7 +4,7 @@
 }
 
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", @name = "formReg" }))
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", @name = "formReg", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -26,7 +26,7 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
-                            <paper-input label="Name"></paper-input>
+                            <paper-input label="Name" id="Name" name="Name"></paper-input>
                         </div>
                         <div class="col-md-1"></div>
                     </div>
@@ -34,7 +34,7 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
-                            <paper-input label="Surname"></paper-input>
+                            <paper-input label="Surname" id="Surname" name="Surname"></paper-input>
                         </div>
                         <div class="col-md-1"></div>
                     </div>
@@ -69,7 +69,7 @@
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-11 form-inline">
-                  Upload an image :  <input type="file" name="picture" />
+                  Upload an image :  <input type="file" name="picture" accept="image/*" />
                 </div>
                 
             </div>

@@ -31,6 +31,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -173,9 +174,50 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="dlls\cublas64_42_9.dll" />
+    <Content Include="dlls\cudart64_42_9.dll" />
+    <Content Include="dlls\cufft64_42_9.dll" />
+    <Content Include="dlls\cvextern.dll" />
+    <Content Include="dlls\npp64_42_9.dll" />
+    <Content Include="dlls\opencv_calib3d242.dll" />
+    <Content Include="dlls\opencv_contrib242.dll" />
+    <Content Include="dlls\opencv_core242.dll" />
+    <Content Include="dlls\opencv_features2d242.dll" />
+    <Content Include="dlls\opencv_ffmpeg242_64.dll" />
+    <Content Include="dlls\opencv_flann242.dll" />
+    <Content Include="dlls\opencv_gpu242.dll" />
+    <Content Include="dlls\opencv_highgui242.dll" />
+    <Content Include="dlls\opencv_imgproc242.dll" />
+    <Content Include="dlls\opencv_legacy242.dll" />
+    <Content Include="dlls\opencv_ml242.dll" />
+    <Content Include="dlls\opencv_nonfree242.dll" />
+    <Content Include="dlls\opencv_objdetect242.dll" />
+    <Content Include="dlls\opencv_photo242.dll" />
+    <Content Include="dlls\opencv_stitching242.dll" />
+    <Content Include="dlls\opencv_video242.dll" />
+    <Content Include="dlls\opencv_videostab242.dll" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="haarcascades\haarcascade_eye.xml" />
+    <Content Include="haarcascades\haarcascade_eye_tree_eyeglasses.xml" />
+    <Content Include="haarcascades\haarcascade_frontalface_alt.xml" />
+    <Content Include="haarcascades\haarcascade_frontalface_alt2.xml" />
+    <Content Include="haarcascades\haarcascade_frontalface_alt_tree.xml" />
+    <Content Include="haarcascades\haarcascade_frontalface_default.xml" />
+    <Content Include="haarcascades\haarcascade_fullbody.xml" />
+    <Content Include="haarcascades\haarcascade_lefteye_2splits.xml" />
+    <Content Include="haarcascades\haarcascade_lowerbody.xml" />
+    <Content Include="haarcascades\haarcascade_mcs_eyepair_big.xml" />
+    <Content Include="haarcascades\haarcascade_mcs_eyepair_small.xml" />
+    <Content Include="haarcascades\haarcascade_mcs_lefteye.xml" />
+    <Content Include="haarcascades\haarcascade_mcs_mouth.xml" />
+    <Content Include="haarcascades\haarcascade_mcs_nose.xml" />
+    <Content Include="haarcascades\haarcascade_mcs_righteye.xml" />
+    <Content Include="haarcascades\haarcascade_mcs_upperbody.xml" />
+    <Content Include="haarcascades\haarcascade_profileface.xml" />
+    <Content Include="haarcascades\haarcascade_righteye_2splits.xml" />
+    <Content Include="haarcascades\haarcascade_upperbody.xml" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -229,7 +271,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
