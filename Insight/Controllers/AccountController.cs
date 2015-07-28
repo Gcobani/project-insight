@@ -95,7 +95,7 @@ namespace Insight.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase picture)
         {
-            //DetectFace(picture);
+            DetectFace(picture);
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };

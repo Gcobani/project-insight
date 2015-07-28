@@ -174,28 +174,72 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="dlls\cublas64_42_9.dll" />
-    <Content Include="dlls\cudart64_42_9.dll" />
-    <Content Include="dlls\cufft64_42_9.dll" />
-    <Content Include="dlls\cvextern.dll" />
-    <Content Include="dlls\npp64_42_9.dll" />
-    <Content Include="dlls\opencv_calib3d242.dll" />
-    <Content Include="dlls\opencv_contrib242.dll" />
-    <Content Include="dlls\opencv_core242.dll" />
-    <Content Include="dlls\opencv_features2d242.dll" />
-    <Content Include="dlls\opencv_ffmpeg242_64.dll" />
-    <Content Include="dlls\opencv_flann242.dll" />
-    <Content Include="dlls\opencv_gpu242.dll" />
-    <Content Include="dlls\opencv_highgui242.dll" />
-    <Content Include="dlls\opencv_imgproc242.dll" />
-    <Content Include="dlls\opencv_legacy242.dll" />
-    <Content Include="dlls\opencv_ml242.dll" />
-    <Content Include="dlls\opencv_nonfree242.dll" />
-    <Content Include="dlls\opencv_objdetect242.dll" />
-    <Content Include="dlls\opencv_photo242.dll" />
-    <Content Include="dlls\opencv_stitching242.dll" />
-    <Content Include="dlls\opencv_video242.dll" />
-    <Content Include="dlls\opencv_videostab242.dll" />
+    <Content Include="dlls\cublas64_42_9.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dlls\cudart64_42_9.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dlls\cufft64_42_9.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dlls\cvextern.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dlls\npp64_42_9.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dlls\opencv_calib3d242.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dlls\opencv_contrib242.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dlls\opencv_core242.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dlls\opencv_features2d242.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dlls\opencv_ffmpeg242_64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dlls\opencv_flann242.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dlls\opencv_gpu242.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dlls\opencv_highgui242.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dlls\opencv_imgproc242.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dlls\opencv_legacy242.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dlls\opencv_ml242.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dlls\opencv_nonfree242.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dlls\opencv_objdetect242.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dlls\opencv_photo242.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dlls\opencv_stitching242.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dlls\opencv_video242.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dlls\opencv_videostab242.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
