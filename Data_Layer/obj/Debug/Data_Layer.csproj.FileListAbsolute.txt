@@ -1,0 +1,5 @@
+C:\Users\Gcobani\Source\Repos\project-insight\Data_Layer\bin\Debug\Data_Layer.dll
+C:\Users\Gcobani\Source\Repos\project-insight\Data_Layer\bin\Debug\Data_Layer.pdb
+C:\Users\Gcobani\Source\Repos\project-insight\Data_Layer\obj\Debug\Data_Layer.csprojResolveAssemblyReference.cache
+C:\Users\Gcobani\Source\Repos\project-insight\Data_Layer\obj\Debug\Data_Layer.dll
+C:\Users\Gcobani\Source\Repos\project-insight\Data_Layer\obj\Debug\Data_Layer.pdb

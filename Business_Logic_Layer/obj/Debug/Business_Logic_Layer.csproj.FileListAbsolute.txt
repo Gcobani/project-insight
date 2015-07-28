@@ -1,0 +1,7 @@
+C:\Users\Gcobani\Source\Repos\project-insight\Business_Logic_Layer\bin\Debug\Business_Logic_Layer.dll
+C:\Users\Gcobani\Source\Repos\project-insight\Business_Logic_Layer\bin\Debug\Business_Logic_Layer.pdb
+C:\Users\Gcobani\Source\Repos\project-insight\Business_Logic_Layer\bin\Debug\Data_Layer.dll
+C:\Users\Gcobani\Source\Repos\project-insight\Business_Logic_Layer\bin\Debug\Data_Layer.pdb
+C:\Users\Gcobani\Source\Repos\project-insight\Business_Logic_Layer\obj\Debug\Business_Logic_Layer.csprojResolveAssemblyReference.cache
+C:\Users\Gcobani\Source\Repos\project-insight\Business_Logic_Layer\obj\Debug\Business_Logic_Layer.dll
+C:\Users\Gcobani\Source\Repos\project-insight\Business_Logic_Layer\obj\Debug\Business_Logic_Layer.pdb
