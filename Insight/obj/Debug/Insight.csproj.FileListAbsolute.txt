@@ -107,3 +107,5 @@ C:\Users\Gcobani\Source\Repos\project-insight\Insight\obj\Debug\Insight.csprojRe
 C:\Users\Gcobani\Source\Repos\project-insight\Insight\obj\Debug\Insight.dll
 C:\Users\Gcobani\Source\Repos\project-insight\Insight\obj\Debug\Insight.pdb
 C:\Users\Gcobani\Source\Repos\project-insight\Insight\bin\Antlr3.Runtime.pdb
+C:\Users\Gcobani\Source\Repos\project-insight\Insight\bin\ZedGraph.dll
+C:\Users\Gcobani\Source\Repos\project-insight\Insight\bin\bin\ZedGraph.dll

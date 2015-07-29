@@ -8,8 +8,8 @@
 {
     @Html.AntiForgeryToken()
 
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-
+   @* @Html.ValidationSummary("", new { @class = "text-danger" }) *@
+    <br/>
     <div class="container">
         <paper-material elevation="3" class="smooth">
 
@@ -27,6 +27,7 @@
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
                             <paper-input label="Name" id="Name" name="Name"></paper-input>
+                            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
                         </div>
                         <div class="col-md-1"></div>
                     </div>
@@ -34,7 +35,7 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
-                            <paper-input label="Surname" id="Surname" name="Surname"></paper-input>
+                            <paper-input label="Surname" id="Surname" name="Surname"></paper-input> @Html.ValidationMessageFor(m => m.Surname, "", new { @class = "text-danger" })
                         </div>
                         <div class="col-md-1"></div>
                     </div>
@@ -50,7 +51,7 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
-                            <paper-input label="Password" id="Password" name="Password" type="Password"></paper-input>
+                            <paper-input label="Password" id="Password" name="Password" type="Password"></paper-input> @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         </div>
                         <div class="col-md-1"></div>
                     </div>
@@ -58,7 +59,7 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
-                            <paper-input label="Confirm Password" name="ConfirmPassword" id="ConfirmPassword" type="password"></paper-input>
+                            <paper-input label="Confirm Password" name="ConfirmPassword" id="ConfirmPassword" type="password"></paper-input> @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
                         </div>
                         <div class="col-md-1"></div>
                     </div>
@@ -69,7 +70,7 @@
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-11 form-inline">
-                  Upload an image :  <input type="file" name="picture" accept="image/*" />
+                  Upload an image :  <input type="file" name="Picture" id="Picture" accept="image/*" /> @Html.ValidationMessageFor(m => m.Picture, "", new { @class = "text-danger" })
                 </div>
                 
             </div>

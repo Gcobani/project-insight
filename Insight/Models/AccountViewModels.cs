@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace Insight.Models
 {
@@ -53,6 +54,8 @@ namespace Insight.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        public HttpPostedFile Picture { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
