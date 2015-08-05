@@ -55,7 +55,7 @@ namespace Insight.Models
     public class RegisterViewModel
     {
         [Required]
-        public HttpPostedFile Picture { get; set; }
+        public HttpPostedFileBase Picture { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

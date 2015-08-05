@@ -85,7 +85,8 @@ namespace Insight.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            RegisterViewModel model = new RegisterViewModel();
+            return View(model);
         }
 
         //
@@ -96,6 +97,7 @@ namespace Insight.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase picture)
         {
             _DetectFace(picture);
+            model.Picture = picture;
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };

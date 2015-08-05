@@ -26,7 +26,12 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
-                            <paper-input label="Name" id="Name" name="Name"></paper-input>
+                            @if(Model.Name != null && Model != null){
+                                <paper-input label="Name" id="Name" name="Name" value="@Model.Name"></paper-input>
+                            }else{
+                                <paper-input label="Name" id="Name" name="Name"></paper-input>
+                            }
+                            
                             @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
                         </div>
                         <div class="col-md-1"></div>
@@ -35,7 +40,12 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
-                            <paper-input label="Surname" id="Surname" name="Surname"></paper-input> @Html.ValidationMessageFor(m => m.Surname, "", new { @class = "text-danger" })
+                            @if(Model.Surname != null && Model != null){
+                                <paper-input label="Surname" id="Surname" name="Surname" value="@Model.Surname"></paper-input>
+                            }else{
+                                <paper-input label="Surname" id="Surname" name="Surname"></paper-input>
+                            }
+                             @Html.ValidationMessageFor(m => m.Surname, "", new { @class = "text-danger" })
                         </div>
                         <div class="col-md-1"></div>
                     </div>
@@ -43,7 +53,12 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
-                            <paper-input label="Email" type="Email" name="Email" id="Email" auto-validate error-message="Inavlid email address! Use notation 'example@somewhere.com'"></paper-input>
+                            @if(Model.Email != null && Model != null){
+                                <paper-input label="Email" type="Email" name="Email" id="Email" value="@Model.Email" auto-validate error-message="Inavlid email address! Use notation 'example@somewhere.com'"></paper-input>
+                            }else{
+                                <paper-input label="Email" type="Email" name="Email" id="Email" auto-validate error-message="Inavlid email address! Use notation 'example@somewhere.com'"></paper-input>
+                            }
+                            
                         </div>
                         <div class="col-md-1"></div>
                     </div>
@@ -77,11 +92,23 @@
             <br />
 
             <div class="row">
+                <div class="col-md-1"></div>
+                    <paper-button raised>Qualification</paper-button>
+                    <iron-dropdown horizontal-align="right" vertical-align="top">
+                        <div class="dropdown-content">Hello!</div>
+                        <div class="dropdown-content">Hello!</div>
+                        <div class="dropdown-content">Hello!</div>
+                        <div class="dropdown-content">Hello!</div>
+                    </iron-dropdown>
+
+            </div>
+            <br/>
+            <div class="row">
                 <div class="container">
                     <hr />
                     <div class="container">
                         <paper-button class="pull-left accept-button" raised onclick="history.go(-1);" style="width:300px">Back</paper-button>
-                        <paper-button class="pull-right accept-button" raised onclick="document.formReg.submit();" style="width:300px">Register</paper-button>
+                        <paper-button class="pull-right accept-button" raised onclick="document.formReg.submit();" style="width:300px">Next</paper-button>
                     </div>
                 </div>
             </div>
@@ -89,6 +116,19 @@
         </paper-material>
     </div>
 }
+
+<script>
+    var button = document.querySelector('paper-button');
+    button.addEventListener('click', function (e) {
+        var dropdown = document.querySelector('iron-dropdown');
+        dropdown.open();
+    });
+    window.addEventListener('WebComponentsReady', function (e) {
+        var dropdown = document.querySelector('iron-dropdown');
+        dropdown.close();
+    });
+
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

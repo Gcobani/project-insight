@@ -10,6 +10,23 @@ namespace Insight.Controllers
     {
         public ActionResult Index()
         {
+            #region Authorize Check
+
+            if(HttpContext.User.IsInRole("root"))
+            { return RedirectToAction("Dashboard"); }
+
+            #endregion
+
+            return View();
+        }
+        [Authorize(Roles="root")]
+        public ActionResult Dashboard()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Dashboard(FormCollection collector)
+        {
             return View();
         }
 
