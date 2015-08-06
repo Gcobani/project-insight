@@ -11,6 +11,6 @@ namespace Insight
         public string ModuleCode { get; set; }
         public DateTime TimeOfDaye { get; set; }
         public string VenueCode { get; set; }
-        ///staff number needed here
+        public string StaffNumber { get; set; }
     }
 }

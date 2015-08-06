@@ -85,6 +85,14 @@ namespace Insight.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            SelectListItem xc = new SelectListItem();
+            xc.Text = "1";
+            SelectListItem xl = new SelectListItem();
+            xl.Text = "2";
+            List<SelectListItem> myItems = new List<SelectListItem>();
+            myItems.Add(xc); myItems.Add(xl);
+            SelectList myList = new SelectList(myItems);
+            ViewData["dropdown"] = myList;
             RegisterViewModel model = new RegisterViewModel();
             return View(model);
         }
@@ -112,7 +120,7 @@ namespace Insight.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("studReg", "Module");
                 }
                 else
                 {

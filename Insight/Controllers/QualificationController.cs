@@ -6,38 +6,27 @@ using System.Web.Mvc;
 
 namespace Insight.Controllers
 {
-    public class ModuleController : Controller
+    public class QualificationController : Controller
     {
-        // GET: Module
+        // GET: Qualification
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult studReg(string User)
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult studReg(FormCollection collector)
-        {
-            return View();
-        }
-
-        // GET: Module/Details/5
+        // GET: Qualification/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Module/Create
+        // GET: Qualification/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Module/Create
+        // POST: Qualification/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -53,13 +42,13 @@ namespace Insight.Controllers
             }
         }
 
-        // GET: Module/Edit/5
+        // GET: Qualification/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Module/Edit/5
+        // POST: Qualification/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -75,13 +64,13 @@ namespace Insight.Controllers
             }
         }
 
-        // GET: Module/Delete/5
+        // GET: Qualification/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Module/Delete/5
+        // POST: Qualification/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

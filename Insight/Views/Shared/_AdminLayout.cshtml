@@ -29,6 +29,15 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Qualification <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Add Qualification", "Module", "Home")</li>
+                            <li>@Html.ActionLink("Edit Qualification", "Month", "Home")</li>
+                        </ul>
+                    </li>
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Module <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
@@ -54,9 +63,6 @@
                     </li>
 
                     <li>@Html.ActionLink("Attendance", "Index", "Home")</li>
-
-                    <li>@Html.ActionLink("About Insight", "About", "Home")</li>
-                    <li>@Html.ActionLink("Insight", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
