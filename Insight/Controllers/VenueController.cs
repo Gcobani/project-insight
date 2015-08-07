@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Insight.BLogic;
+using Insight.Data;
+using Insight.Models;
 using System.Web.Mvc;
 
 namespace Insight.Controllers
@@ -23,7 +26,8 @@ namespace Insight.Controllers
         // GET: Venue/Create
         public ActionResult Create()
         {
-            return View();
+            Venue _venue = new Venue();
+            return View(_venue);
         }
 
         // POST: Venue/Create

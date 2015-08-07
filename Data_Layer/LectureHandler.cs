@@ -68,6 +68,19 @@ namespace Insight.Data
             return _lectureList;
         }
 
+        public bool UpdateLecture(Lecture _lecture)
+        {
+            SqlParameter[] Params = new SqlParameter[]
+            {
+                new SqlParameter("@TimeOfDay", _lecture.TimeOfDay ),
+                new SqlParameter("@ModuleCode", _lecture.ModuleCode),
+                new SqlParameter("@StaffNumber", _lecture.StaffNumber),
+                new SqlParameter("@VenueCode", _lecture.VenueCode),
+            };
+            return DataAccess.ExecuteNonQuery("", CommandType.StoredProcedure,
+                Params);
+        }
+
         public List<Lecture> GetRangeOfLectures(DateTime startDate, DateTime endDate)
         {
             List<Lecture> _lectureList = null;

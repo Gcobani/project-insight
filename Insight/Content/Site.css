@@ -33,8 +33,12 @@ textarea {
 }
 
 .accept-button {
+    width:300px;
     background: #4285f4;
 }
 .decline-button {
     background:#ff0000
+}
+h2, h1, h3, h4{
+    font-family:Raleway;
 }

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Insight.Data;
+using Insight.BLogic;
+using Insight.Models;
 using System.Web.Mvc;
 
 namespace Insight.Controllers
@@ -23,22 +26,25 @@ namespace Insight.Controllers
         // GET: Lecture/Create
         public ActionResult Create()
         {
-            return View();
+            Lecture _lecture = new Lecture();
+            return View(_lecture);
         }
 
         // POST: Lecture/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Lecture _lecture)
         {
+            BusinessLogicHandler _gateWay = new BusinessLogicHandler();
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                if(_gateWay.InsertLecture(_lecture))
+                { return RedirectToAction("Index");}
+                else
+                { return View(_lecture); }
             }
             catch
             {
-                return View();
+                return View(_lecture);
             }
         }
 

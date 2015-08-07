@@ -26,9 +26,8 @@ namespace Insight.BLogic
         { AttendanceRegisterHandler myHandler = new AttendanceRegisterHandler(); return myHandler.NewAttendanceRegister(_register); }
 
         public bool InsertStudentAttendance(StudentAttendance _studentAttendance)
-        { stude}
+        { StudentAttendanceHandler myHandler =  new StudentAttendanceHandler(); return myHandler.NewStudentAttendance(_studentAttendance);}
 
-        public void 
 
         #endregion
 

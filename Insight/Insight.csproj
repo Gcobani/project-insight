@@ -190,8 +190,13 @@
     <Compile Include="Migrations\201508011357425_InitialCreate.Designer.cs">
       <DependentUpon>201508011357425_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508071800170_1stOfMany.cs" />
+    <Compile Include="Migrations\201508071800170_1stOfMany.Designer.cs">
+      <DependentUpon>201508071800170_1stOfMany.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CreateModuleViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -272,12 +277,13 @@
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
     <Content Include="Views\Module\studReg.cshtml" />
+    <Content Include="Views\Qualification\Create.cshtml" />
+    <Content Include="Views\Module\Create.cshtml" />
+    <Content Include="Views\Venue\Create.cshtml" />
+    <Content Include="Views\Lecture\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Lecture\" />
-    <Folder Include="Views\Qualification\" />
-    <Folder Include="Views\Venue\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -290,6 +296,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201508011357425_InitialCreate.resx">
       <DependentUpon>201508011357425_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508071800170_1stOfMany.resx">
+      <DependentUpon>201508071800170_1stOfMany.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

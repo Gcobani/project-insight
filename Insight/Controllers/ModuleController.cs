@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Insight.Models;
+using Insight.Data;
+using Insight.BLogic;
 
 namespace Insight.Controllers
 {
@@ -34,22 +37,35 @@ namespace Insight.Controllers
         // GET: Module/Create
         public ActionResult Create()
         {
-            return View();
+            CreateModuleViewModel _model = new CreateModuleViewModel();
+            List<SelectListItem> _qualList = new List<SelectListItem>();
+            _qualList.Add(new SelectListItem { Text = "FirstMember", Value = "1", Selected = true });
+            ViewData["Qualifications"] = _qualList;
+            _model.Qualifications = _qualList;
+            return View(_model);
         }
 
         // POST: Module/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(CreateModuleViewModel _model, FormCollection collector)
         {
+            Module _module = new Module();
+            _module.ModuleCode = _model.ModuleCode;
+            _module.ModuleName = _model.ModuleName;
+            _module.NumberOfScheduledClasses = _model.NumberOfScheduledClasses;
+            _module.QualificationCode = Convert.ToInt32(collector.GetValue("").AttemptedValue);
+
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                BusinessLogicHandler _gateWay = new BusinessLogicHandler();
+                if(_gateWay.InsertModule(_module))
+                { return RedirectToAction("Index"); }
+                else
+                { return View(_model); }
             }
             catch
             {
-                return View();
+                return View(_model);
             }
         }
 

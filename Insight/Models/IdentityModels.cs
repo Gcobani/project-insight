@@ -39,5 +39,7 @@ namespace Insight.Models
             modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaims");
             modelBuilder.Entity<IdentityRole>().ToTable("Roles");
         }
+
+        public System.Data.Entity.DbSet<Insight.Data.Qualification> Qualifications { get; set; }
     }
 }

@@ -69,6 +69,19 @@ namespace Insight.Data
             return _regList;
         }
 
+        public bool UpdateAttendanceRegister(AttendanceRegister _register)
+        {
+            SqlParameter[] Params = new SqlParameter[]
+            {
+                new SqlParameter("@DateTime", _register.DateTime ),
+                new SqlParameter("@ModuleCode", _register.ModuleCode),
+                new SqlParameter("@StaffNumber", _register.StaffNumber),
+                new SqlParameter("@VenueCode", _register.VenueCode),
+            };
+            return DataAccess.ExecuteNonQuery("", CommandType.StoredProcedure,
+                Params);
+        }
+
         public List<AttendanceRegister> GetRangeOfAttendanceRegisters(DateTime startDate, DateTime endDate)
         {
             List<AttendanceRegister> _regList = null;

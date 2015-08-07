@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Insight.Data;
+using Insight.BLogic;
 
 namespace Insight.Controllers
 {
@@ -23,22 +25,25 @@ namespace Insight.Controllers
         // GET: Qualification/Create
         public ActionResult Create()
         {
-            return View();
+            Qualification _qualificationModel = new Qualification();
+            return View(_qualificationModel);
         }
 
         // POST: Qualification/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Qualification _qualification)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                BusinessLogicHandler _gateWay = new BusinessLogicHandler();
+                if(_gateWay.InsertQualification(_qualification))
+                { return RedirectToAction("Index"); }
+                else
+                { return View(_qualification); }  
             }
             catch
             {
-                return View();
+                return View(_qualification);
             }
         }
 

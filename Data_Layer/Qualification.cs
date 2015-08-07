@@ -12,8 +12,10 @@ namespace Insight.Data
     {
         [Key]
         [Required]
+        [Display(Name="Qualification Code")]
         public int QualificationCode { get; set; }
+        [Required]
+        [Display(Name="Qualification Name")]
         public string QualificationName { get; set; }
-        public string Id { get; set; }
     }
 }

@@ -115,3 +115,4 @@ C:\Users\Gcobani\Source\Repos\project-insight\Insight\bin\Business_Logic_Layer.d
 C:\Users\Gcobani\Source\Repos\project-insight\Insight\bin\Data_Layer.dll
 C:\Users\Gcobani\Source\Repos\project-insight\Insight\bin\Business_Logic_Layer.pdb
 C:\Users\Gcobani\Source\Repos\project-insight\Insight\bin\Data_Layer.pdb
+C:\Users\Gcobani\Source\Repos\project-insight\Insight\obj\Debug\Insight.Migrations._1stOfMany.resources

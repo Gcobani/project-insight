@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title </title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href='http://fonts.googleapis.com/css?family=Roboto:100italic,300,300italic,400' rel='stylesheet' type='text/css'>
@@ -33,23 +33,23 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Qualification <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink("Add Qualification", "Module", "Home")</li>
-                            <li>@Html.ActionLink("Edit Qualification", "Month", "Home")</li>
+                            <li>@Html.ActionLink("Add Qualification", "Create", "Qualification")</li>
+                            <li>@Html.ActionLink("Edit Qualifications", "Index", "Qualification")</li>
                         </ul>
                     </li>
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Module <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink("Add Module", "Module", "Home")</li>
-                            <li>@Html.ActionLink("Edit Modules", "Month", "Home")</li>
+                            <li>@Html.ActionLink("Add Module", "Create", "Module")</li>
+                            <li>@Html.ActionLink("Edit Modules", "Index", "Module")</li>
                         </ul>
                     </li>
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Venue <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink("Add Venue", "Module", "Home")</li>
+                            <li>@Html.ActionLink("Add Venue", "Create", "Venue")</li>
                             <li>@Html.ActionLink("Edit Venue", "Month", "Home")</li>
                         </ul>
                     </li>
@@ -57,7 +57,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Lecture <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink("Add Lecture", "Module", "Home")</li>
+                            <li>@Html.ActionLink("Add Lecture", "Create", "Lecture")</li>
                             <li>@Html.ActionLink("Edit Lecture", "Month", "Home")</li>
                         </ul>
                     </li>

@@ -1,0 +1,63 @@
+﻿@model Insight.Models.CreateModuleViewModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("Create", "Module", FormMethod.Post, new { @role="form", @name="createModule"})){
+
+@Html.AntiForgeryToken()
+<br/>
+<paper-material class="container" elevate="3">
+    <div class="row" style="text-align:center">
+        <h2>Create New Module</h2>
+        <hr />
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4">
+            <label class="form-group">Please Select Qualification :</label>
+        </div>
+        <div class="col-md-8">
+            @Html.DropDownList("Qualifications", Model.Qualifications, new { @class="form-control"})
+        </div>
+    </div>
+    <div class="row container">
+        @if(Model.ModuleCode != null){ 
+            <paper-input id="ModuleCode" label="Module Code" name="ModuleCode" value="@Model.ModuleCode"></paper-input> @Html.ValidationMessageFor(model => model.ModuleCode, "", new { @class = "text-danger" })
+        }
+        else
+        {
+            <paper-input id="ModuleCode" label="Module Code" name="ModuleCode"></paper-input> @Html.ValidationMessageFor(model => model.ModuleCode, "", new { @class = "text-danger" })
+        }
+        <br />
+        @if(Model.ModuleName != null){
+            <paper-input id="MaduleName" name="ModuleName" label="Module Name" value="@Model.ModuleName"></paper-input> @Html.ValidationMessageFor(model => model.ModuleName, "", new { @class = "text-danger" })
+        }
+        else
+        {
+            <paper-input id="MaduleName" name="ModuleName" label="Module Name"></paper-input> @Html.ValidationMessageFor(model => model.ModuleName, "", new { @class = "text-danger" })
+        }
+        <br />
+        @if(Model.NumberOfScheduledClasses != null && Model.NumberOfScheduledClasses != 0){
+            <paper-input name="NumberOfScheduledClasses" id="NumberOfScheduledClasses" label="Number Of Classes" value="@Model.NumberOfScheduledClasses"></paper-input> @Html.ValidationMessageFor(model => model.NumberOfScheduledClasses, "", new { @class = "text-danger" })
+        }
+        else
+        {
+            <paper-input name="NumberOfScheduledClasses" id="NumberOfScheduledClasses" label="Number Of Classes"></paper-input> @Html.ValidationMessageFor(model => model.NumberOfScheduledClasses, "", new { @class = "text-danger" })
+        }
+    </div>
+    <br />
+    <div class="row">
+        <hr />
+        <div class="container">
+            <paper-button raised class="accept-button pull-left" onclick="history.go(-1);">Back</paper-button>
+            <paper-button raised class="accept-button pull-right" onclick="document.createModule.Submit();">Create</paper-button>
+        </div>
+    </div>
+    <br />
+</paper-material>
+
+
+
+}
