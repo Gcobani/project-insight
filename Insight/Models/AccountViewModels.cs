@@ -1,6 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Web;
-
+using System.Collections;
+using System.Collections.Generic;
+using Insight.Data;
+using System.Web.WebPages.Html;
+//using System.Web.Mvc.Html;
+using System.Web.Mvc;
 namespace Insight.Models
 {
     public class ExternalLoginConfirmationViewModel
@@ -9,6 +14,7 @@ namespace Insight.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
     }
 
     public class ExternalLoginListViewModel
@@ -32,7 +38,7 @@ namespace Insight.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -55,6 +61,9 @@ namespace Insight.Models
     public class RegisterViewModel
     {
         [Required]
+        [StringLength(10, MinimumLength=10)]
+        public string StudentNumber { get; set; }
+        [Required]
         public HttpPostedFileBase Picture { get; set; }
         [Required]
         public string Name { get; set; }
@@ -73,8 +82,9 @@ namespace Insight.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        public IEnumerable< System.Web.Mvc.SelectListItem> Qualificaions { get; set; }
     }
 
     public class ResetPasswordViewModel
@@ -92,7 +102,7 @@ namespace Insight.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

@@ -41,15 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attendance.cs" />
+    <Compile Include="AttendanceRegister.cs" />
+    <Compile Include="AttendanceRegisterHandler.cs" />
     <Compile Include="DataAccess.cs" />
     <Compile Include="Lecture.cs" />
+    <Compile Include="LectureHandler.cs" />
     <Compile Include="Module.cs" />
+    <Compile Include="ModuleHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Qualification.cs" />
+    <Compile Include="QualificationHandler.cs" />
     <Compile Include="Student.cs" />
     <Compile Include="StudentAttendance.cs" />
+    <Compile Include="StudentAttendanceHandler.cs" />
+    <Compile Include="StudentHandler.cs" />
     <Compile Include="Venue.cs" />
+    <Compile Include="VenueHandler.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

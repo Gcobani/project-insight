@@ -16,6 +16,7 @@ using Emgu.CV.Structure;
 using Emgu.CV.UI;
 using Emgu.CV.Cuda;
 using Insight.Models;
+using Insight.Data;
 using System.IO;
 using System.Drawing;
 
@@ -85,15 +86,13 @@ namespace Insight.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            SelectListItem xc = new SelectListItem();
-            xc.Text = "1";
-            SelectListItem xl = new SelectListItem();
-            xl.Text = "2";
             List<SelectListItem> myItems = new List<SelectListItem>();
-            myItems.Add(xc); myItems.Add(xl);
+            myItems.Add(new SelectListItem { Text = "23", Value = "1", Selected = true });
+            myItems.Add(new SelectListItem { Text = "24", Value = "2" });
             SelectList myList = new SelectList(myItems);
-            ViewData["dropdown"] = myList;
+            ViewData["Qualifications"] = myList;
             RegisterViewModel model = new RegisterViewModel();
+            model.Qualificaions = myItems;
             return View(model);
         }
 
@@ -109,6 +108,8 @@ namespace Insight.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+                Student stud = new Student(); Qualification qual = new Qualification();
+                stud.Name = model.Name; stud.Surname = model.Surname; stud.StudentNumber = model.StudentNumber; 
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Insight
+namespace Insight.Data
 {
     public class StudentAttendance
     {
         public DateTime DateTime { get; set; }
         public string VenueCode { get; set; }
         public string ModuleCode { get; set; }
-        //student number neeeded here
+        public string StudentNumber { get; set; }
         public bool Present { get; set; }
     }
 }

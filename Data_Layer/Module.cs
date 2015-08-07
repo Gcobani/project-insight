@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Insight
+namespace Insight.Data
 {
     public class Module
     {
         public string ModuleCode { get; set; }
         public string ModuleName { get; set; }
         public int NumberOfScheduledClasses { get; set; }
+        public int QualificationCode { get; set; }
     }
 }

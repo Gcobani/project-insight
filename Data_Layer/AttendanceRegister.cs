@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Insight
+namespace Insight.Data
 {
-    public class Attendance
+    public class AttendanceRegister
     {
         public string VenueCode { get; set; }
         public DateTime DateTime { get; set; }
         public string ModuleCode { get; set; }
-        ///staff number needed here
+        public string StaffNumber { get; set; }
     }
 }

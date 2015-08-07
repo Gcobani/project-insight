@@ -1,4 +1,5 @@
-﻿@model Insight.Models.RegisterViewModel
+﻿@using System.Web.Mvc
+@model Insight.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
 }
@@ -93,8 +94,8 @@
 
             <div class="row">
                 <div class="col-md-1"></div>
-                <div class="col-md-11">
-                 @*   @Html.DropDownList("dropdown" ) *@
+                <div class="col-md-11 form-inline"> Please Select Qualification : 
+                   @Html.DropDownList("Qualifications", Model.Qualificaions, new { @class = "dropdown form-control" })
                 </div>
             </div>
             <br/>

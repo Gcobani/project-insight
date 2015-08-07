@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Configuration;
 
-namespace Insight
+namespace Insight.Data
 {
     public class DataAccess
     {
