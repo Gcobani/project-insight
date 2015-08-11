@@ -21,7 +21,7 @@ namespace Insight.Data
                 new SqlParameter("@DateTime", _registerAttendance.DateTime),
                 new SqlParameter("@StudentNumber", _registerAttendance.StudentNumber)
             };
-            return DataAccess.ExecuteNonQuery("", CommandType.StoredProcedure,
+            return DataAccess.ExecuteNonQuery("sp_InsertStudentAttendance", CommandType.StoredProcedure,
                 Params);
         }
 
@@ -30,7 +30,7 @@ namespace Insight.Data
             StudentAttendance _registerAttendance = null;
 
             SqlParameter[] Params = { new SqlParameter("@USAI", USAI) };
-            using (DataTable table = DataAccess.ExecuteParamatizedSelectCommand("",
+            using (DataTable table = DataAccess.ExecuteParamatizedSelectCommand("sp_GetStudentAttendance",
                 CommandType.StoredProcedure, Params))
             {
                 if (table.Rows.Count == 1)
@@ -51,7 +51,7 @@ namespace Insight.Data
         {
             List<StudentAttendance> _registerAttendanceList = null;
 
-            using (DataTable table = DataAccess.ExecuteSelectCommand("",
+            using (DataTable table = DataAccess.ExecuteSelectCommand("sp_GetAllStudentAttendance",
                 CommandType.StoredProcedure))
             {
                 if (table.Rows.Count > 0)

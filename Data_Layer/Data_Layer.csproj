@@ -46,6 +46,8 @@
     <Compile Include="DataAccess.cs" />
     <Compile Include="Lecture.cs" />
     <Compile Include="LectureHandler.cs" />
+    <Compile Include="Lecturer.cs" />
+    <Compile Include="LecturerHandler.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="ModuleHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

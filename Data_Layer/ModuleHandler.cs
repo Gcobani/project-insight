@@ -16,10 +16,10 @@ namespace Insight.Data
             {
                 new SqlParameter("@ModuleCode", _module.ModuleCode),
                 new SqlParameter("@ModuleName", _module.ModuleName),
-                new SqlParameter("@NumberOfScheduledClasses",_module.NumberOfScheduledClasses),
+                new SqlParameter("@NumberOfClasses",_module.NumberOfScheduledClasses),
                 new SqlParameter("@QualificationCode", _module.QualificationCode)
             };
-            return DataAccess.ExecuteNonQuery("", CommandType.StoredProcedure,
+            return DataAccess.ExecuteNonQuery("sp_InsertModule", CommandType.StoredProcedure,
                 Params);
         }
 
@@ -28,7 +28,7 @@ namespace Insight.Data
             Module _module = null;
 
             SqlParameter[] Params = { new SqlParameter("@ModuleCode", ModuleCode) };
-            using (DataTable table = DataAccess.ExecuteParamatizedSelectCommand("",
+            using (DataTable table = DataAccess.ExecuteParamatizedSelectCommand("sp_GetModule",
                 CommandType.StoredProcedure, Params))
             {
                 if (table.Rows.Count == 1)
@@ -72,7 +72,7 @@ namespace Insight.Data
         {
             List<Module> _moduleList = null;
             SqlParameter[] Params = { new SqlParameter("@QualificationCode", QualificationCode) };
-            using (DataTable table = DataAccess.ExecuteParamatizedSelectCommand("", CommandType.StoredProcedure, Params))
+            using (DataTable table = DataAccess.ExecuteParamatizedSelectCommand("sp_GetAllModulesForQualification", CommandType.StoredProcedure, Params))
             {
                 if (table.Rows.Count > 0)
                 {

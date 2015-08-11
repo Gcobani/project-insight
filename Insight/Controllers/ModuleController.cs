@@ -37,9 +37,21 @@ namespace Insight.Controllers
         // GET: Module/Create
         public ActionResult Create()
         {
+            BusinessLogicHandler _gateWay = new BusinessLogicHandler();
+
+            #region Get Qualifications
+
+            List<Qualification> _qualifications = new List<Qualification>();
+            _qualifications = _gateWay.GetQualifications();
+
+            #endregion
+
             CreateModuleViewModel _model = new CreateModuleViewModel();
             List<SelectListItem> _qualList = new List<SelectListItem>();
-            _qualList.Add(new SelectListItem { Text = "FirstMember", Value = "1", Selected = true });
+
+            foreach( var _qualification in _qualifications){
+                _qualList.Add(new SelectListItem { Text=_qualification.QualificationName, Value=_qualification.QualificationCode.ToString() });
+            }
             ViewData["Qualifications"] = _qualList;
             _model.Qualifications = _qualList;
             return View(_model);
@@ -49,22 +61,59 @@ namespace Insight.Controllers
         [HttpPost]
         public ActionResult Create(CreateModuleViewModel _model, FormCollection collector)
         {
+            BusinessLogicHandler _gateWay = new BusinessLogicHandler();
             Module _module = new Module();
             _module.ModuleCode = _model.ModuleCode;
             _module.ModuleName = _model.ModuleName;
             _module.NumberOfScheduledClasses = _model.NumberOfScheduledClasses;
-            _module.QualificationCode = Convert.ToInt32(collector.GetValue("").AttemptedValue);
+            _module.QualificationCode = Convert.ToInt32(collector.GetValue("Qualifications").AttemptedValue);
 
             try
             {
-                BusinessLogicHandler _gateWay = new BusinessLogicHandler();
+                
                 if(_gateWay.InsertModule(_module))
-                { return RedirectToAction("Index"); }
+                { return RedirectToAction("Index");/*CHANGE THIS HERE*/ }
                 else
-                { return View(_model); }
+                {
+
+                    #region Load Dropdown
+
+                    List<Qualification> _qualifications = new List<Qualification>();
+                    _qualifications = _gateWay.GetQualifications();
+
+                    List<SelectListItem> _qualList = new List<SelectListItem>();
+
+                    foreach (var _qualification in _qualifications)
+                    {
+                        _qualList.Add(new SelectListItem { Text = _qualification.QualificationName, Value = _qualification.QualificationCode.ToString() });
+                    }
+                    ViewData["Qualifications"] = _qualList;
+                    _model.Qualifications = _qualList;
+
+                    #endregion
+
+                    return View(_model); 
+                }
             }
-            catch
+            catch (Exception ex)
             {
+
+                #region Load Dropdown
+
+                List<Qualification> _qualifications = new List<Qualification>();
+                _qualifications = _gateWay.GetQualifications();
+
+                List<SelectListItem> _qualList = new List<SelectListItem>();
+
+                foreach (var _qualification in _qualifications)
+                {
+                    _qualList.Add(new SelectListItem { Text = _qualification.QualificationName, Value = _qualification.QualificationCode.ToString() });
+                }
+                ViewData["Qualifications"] = _qualList;
+                _model.Qualifications = _qualList;
+
+                #endregion
+
                 return View(_model);
             }
         }

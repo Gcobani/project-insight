@@ -19,7 +19,7 @@ namespace Insight.Data
                 new SqlParameter("@VenueCode",_lecture.VenueCode), 
                 new SqlParameter("@TimeOfDay", _lecture.TimeOfDay)
             };
-            return DataAccess.ExecuteNonQuery("", CommandType.StoredProcedure,
+            return DataAccess.ExecuteNonQuery("sp_InsertLecture", CommandType.StoredProcedure,
                 Params);
         }
 
@@ -28,7 +28,7 @@ namespace Insight.Data
             Lecture _lecture = null;
 
             SqlParameter[] Params = { new SqlParameter("@LUI", LUI) };
-            using (DataTable table = DataAccess.ExecuteParamatizedSelectCommand("",
+            using (DataTable table = DataAccess.ExecuteParamatizedSelectCommand("sp_GetLecture",
                 CommandType.StoredProcedure, Params))
             {
                 if (table.Rows.Count == 1)
@@ -48,7 +48,7 @@ namespace Insight.Data
         {
             List<Lecture> _lectureList = null;
 
-            using (DataTable table = DataAccess.ExecuteSelectCommand("",
+            using (DataTable table = DataAccess.ExecuteSelectCommand("sp_GetAllLectures",
                 CommandType.StoredProcedure))
             {
                 if (table.Rows.Count > 0)
@@ -72,12 +72,13 @@ namespace Insight.Data
         {
             SqlParameter[] Params = new SqlParameter[]
             {
+                new SqlParameter("@LUI", _lecture.LUI),
                 new SqlParameter("@TimeOfDay", _lecture.TimeOfDay ),
                 new SqlParameter("@ModuleCode", _lecture.ModuleCode),
                 new SqlParameter("@StaffNumber", _lecture.StaffNumber),
-                new SqlParameter("@VenueCode", _lecture.VenueCode),
+                new SqlParameter("@VenueCode", _lecture.VenueCode)
             };
-            return DataAccess.ExecuteNonQuery("", CommandType.StoredProcedure,
+            return DataAccess.ExecuteNonQuery("sp_UpdateLecture", CommandType.StoredProcedure,
                 Params);
         }
 

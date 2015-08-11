@@ -32,17 +32,18 @@ namespace Insight.Controllers
 
         // POST: Venue/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Venue _venue)
         {
+            BusinessLogicHandler _gateWay = new BusinessLogicHandler();
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                if (_gateWay.InsertVenue(_venue))
+                { return RedirectToAction("Index"); }
+                else { return View(_venue); }
             }
             catch
             {
-                return View();
+                return View(_venue);
             }
         }
 

@@ -42,3 +42,10 @@ textarea {
 h2, h1, h3, h4{
     font-family:Raleway;
 }
+.smoother{
+    border-radius:5px 5px 5px 5px;
+    border-width:1px;
+}
+paper-radio-button {
+        display: block;
+}

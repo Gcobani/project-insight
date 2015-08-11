@@ -10,6 +10,19 @@ namespace Insight.Data
 {
     public class StudentHandler
     {
+        public bool NewStudent(Student _student)
+        {
+            SqlParameter[] Params = new SqlParameter[]
+            {
+                new SqlParameter("@User_Id", _student.User_Id),
+                new SqlParameter("@StudentNumber", _student.StudentNumber),
+                new SqlParameter("@Name",_student.Name),
+                new SqlParameter("@Surname", _student.Surname), 
+                new SqlParameter("@QualificationCode", _student.QualificationCode)
+            };
+            return DataAccess.ExecuteNonQuery("sp_InsertStudent", CommandType.StoredProcedure,
+                Params);
+        }
         public Student GetStudent(string Id)
         {
             Student _student = null;
@@ -44,7 +57,7 @@ namespace Insight.Data
                     foreach (DataRow row in table.Rows)
                     {
                         Student _student = new Student();
-                        _student.Id = row["Id"].ToString();
+                        _student.User_Id = row["Id"].ToString();
                         _student.Name = row["Name"].ToString();
                         _student.Surname = row["Surname"].ToString();
                         _student.StudentNumber = row["StudentNumber"].ToString();
@@ -71,7 +84,7 @@ namespace Insight.Data
                         _student.StudentNumber = row["StudentNumber"].ToString();
                         _student.Name = row["Name"].ToString();
                         _student.Surname = row["Surname"].ToString();
-                        _student.Id = row["Id"].ToString();
+                        _student.User_Id = row["Id"].ToString();
                         _studentList.Add(_student);
                     }
                 }

@@ -8,6 +8,7 @@ namespace Insight.Data
 {
     public class AttendanceRegister
     {
+        public int AttendanceRegNumber { get; set; }
         public string VenueCode { get; set; }
         public DateTime DateTime { get; set; }
         public string ModuleCode { get; set; }

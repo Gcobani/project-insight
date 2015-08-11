@@ -14,10 +14,9 @@ namespace Insight.Data
         {
             SqlParameter[] Params = new SqlParameter[]
             {
-                new SqlParameter("@QualificationCode", _qualification.QualificationCode),
-                new SqlParameter("@QualificationName", _qualification.QualificationName),
+                new SqlParameter("@QualificationName", _qualification.QualificationName)
             };
-            return DataAccess.ExecuteNonQuery("", CommandType.StoredProcedure,
+            return DataAccess.ExecuteNonQuery("sp_InsertQualification", CommandType.StoredProcedure,
                 Params);
         }
 
@@ -26,7 +25,7 @@ namespace Insight.Data
             Qualification _qualification = null;
 
             SqlParameter[] Params = { new SqlParameter("@QualificationCode", _qualificationCode) };
-            using (DataTable table = DataAccess.ExecuteParamatizedSelectCommand("",
+            using (DataTable table = DataAccess.ExecuteParamatizedSelectCommand("sp_GetQualification",
                 CommandType.StoredProcedure, Params))
             {
                 if (table.Rows.Count == 1)
@@ -44,7 +43,7 @@ namespace Insight.Data
         {
             List<Qualification> _qualificationList = null;
 
-            using (DataTable table = DataAccess.ExecuteSelectCommand("",
+            using (DataTable table = DataAccess.ExecuteSelectCommand("sp_GetAllQualifications",
                 CommandType.StoredProcedure))
             {
                 if (table.Rows.Count > 0)
@@ -62,26 +61,5 @@ namespace Insight.Data
             return _qualificationList;
         }
 
-        public List<Module> GetModuleForQualification(int QualificationCode)
-        {
-            List<Module> _moduleList = null;
-            SqlParameter[] Params = { new SqlParameter("@QualificationCode", QualificationCode) };
-            using (DataTable table = DataAccess.ExecuteParamatizedSelectCommand("", CommandType.StoredProcedure, Params))
-            {
-                if (table.Rows.Count > 0)
-                {
-                    _moduleList = new List<Module>();
-                    foreach (DataRow row in table.Rows)
-                    {
-                        Module _module = new Module();
-                        _module.NumberOfScheduledClasses = Convert.ToInt32(row["NumberOfScheduledClasses"]);
-                        _module.ModuleCode = row["ModuleCode"].ToString();
-                        _module.ModuleName = row["ModuleName"].ToString();
-                        _moduleList.Add(_module);
-                    }
-                }
-            }
-            return _moduleList;
-        }
     }
 }

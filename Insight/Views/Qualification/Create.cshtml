@@ -10,41 +10,38 @@
 {
     @Html.AntiForgeryToken()
         <br />
-        <paper-material class="container" elevation="3">
+    <paper-material class="container" elevation="3">
 
-            <div class="row" style="text-align:center">
-                <h2>Create new Qualification</h2>
-                <hr />
-            </div>
-            <br />
-            <div class="row">
-                <div class="container">
-                    @if(Model.QualificationCode != null && Model.QualificationCode != 0){
-                        <paper-input label="Qualification Code" id="QualificationCode" name="QualificationCode" value="@Model.QualificationCode"></paper-input> @Html.ValidationMessageFor(model => model.QualificationCode, "", new { @class = "text-danger" })
-                    }
-                    else
-                    {
-                        <paper-input label="Qualification Code" id="QualificationCode" name="QualificationCode"></paper-input> @Html.ValidationMessageFor(model => model.QualificationCode, "", new { @class = "text-danger" })
-                    }
-                    <br />
-                    @if(Model.QualificationName != null){
-                        <paper-input label="Qualification Name" id="QualificationName" name="QualificationName" value="@Model.QualificationName"></paper-input> @Html.ValidationMessageFor(model => model.QualificationName, "", new { @class = "text-danger" })
-                    }else{
-                        <paper-input label="Qualification Name" id="QualificationName" name="QualificationName"></paper-input> @Html.ValidationMessageFor(model => model.QualificationName, "", new { @class = "text-danger" })
-                    }
-                </div>
+        <div class="row" style="text-align:center">
+            <h2>Create new Qualification</h2>
+            <hr />
+        </div>
+        <br />
+        <div class="row">
+            <div class="container">
                 <br />
-            </div>
-            
-            <div class="row">
-                <hr />
-                <div class="container">
-                    <paper-button raised class="accept-button pull-left" onclick="history.go(-1);">Back</paper-button>
-                    <paper-button raised class="accept-button pull-right" onclick="document.createQual.Submit();">Create</paper-button>
-                </div>
+
+                @if (Model.QualificationName != null)
+                {
+                    <paper-input label="Qualification Name" id="QualificationName" name="QualificationName" value="@Model.QualificationName"></paper-input> @Html.ValidationMessageFor(model => model.QualificationName, "", new { @class = "text-danger" })
+                }
+                else
+                {
+                    <paper-input label="Qualification Name" id="QualificationName" name="QualificationName"></paper-input> @Html.ValidationMessageFor(model => model.QualificationName, "", new { @class = "text-danger" })
+                }
             </div>
             <br />
-        </paper-material>
+        </div>
+
+        <div class="row">
+            <hr />
+            <div class="container">
+                <paper-button raised class="accept-button pull-left" onclick="history.go(-1);">Back</paper-button>
+                <paper-button raised class="accept-button pull-right" onclick="document.createQual.submit();">Create</paper-button>
+            </div>
+        </div>
+        <br />
+    </paper-material>
 }
 
 @section Scripts {

@@ -18,7 +18,7 @@ namespace Insight.Data
                 new SqlParameter("@VenueName", _venue.VenueName),
                 new SqlParameter("@VenueSize",_venue.VenueSize),
             };
-            return DataAccess.ExecuteNonQuery("", CommandType.StoredProcedure,
+            return DataAccess.ExecuteNonQuery("sp_InsertVenue", CommandType.StoredProcedure,
                 Params);
         }
 
@@ -27,7 +27,7 @@ namespace Insight.Data
             Venue _venue = null;
 
             SqlParameter[] Params = { new SqlParameter("@VenueCode", VenueCode) };
-            using (DataTable table = DataAccess.ExecuteParamatizedSelectCommand("",
+            using (DataTable table = DataAccess.ExecuteParamatizedSelectCommand("sp_GetVenue",
                 CommandType.StoredProcedure, Params))
             {
                 if (table.Rows.Count == 1)
@@ -42,11 +42,11 @@ namespace Insight.Data
             return _venue;
         }
 
-        public List<Venue> GetAllModules()
+        public List<Venue> GetAllVenues()
         {
             List<Venue> _venueList = null;
 
-            using (DataTable table = DataAccess.ExecuteSelectCommand("",
+            using (DataTable table = DataAccess.ExecuteSelectCommand("sp_GetAllVenues",
                 CommandType.StoredProcedure))
             {
                 if (table.Rows.Count > 0)

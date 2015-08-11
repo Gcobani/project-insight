@@ -4,6 +4,10 @@ using System.Linq;
 using System.Web;
 using Insight.Data;
 using Insight.BLogic;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using Insight.Models;
 using System.Web.Mvc;
 
@@ -11,6 +15,7 @@ namespace Insight.Controllers
 {
     public class LectureController : Controller
     {
+        ApplicationUserManager UserManager;
         // GET: Lecture
         public ActionResult Index()
         {
@@ -35,6 +40,26 @@ namespace Insight.Controllers
         public ActionResult Create(Lecture _lecture)
         {
             BusinessLogicHandler _gateWay = new BusinessLogicHandler();
+
+            #region Identity
+
+            ApplicationDbContext dataSocket = new ApplicationDbContext();
+            UserStore<ApplicationUser> myStore = new UserStore<ApplicationUser>(dataSocket);
+            UserManager = new ApplicationUserManager(myStore);
+            var user = UserManager.FindByName(HttpContext.User.Identity.Name);
+
+            #endregion
+
+            #region Get Lecturer
+            Lecturer staffMember = new Lecturer();
+            staffMember = _gateWay.GetLecturer(user.Id);
+            #endregion
+
+            #region Setting things up
+
+            _lecture.StaffNumber = staffMember.StaffNumber;
+
+            #endregion
             try
             {
                 if(_gateWay.InsertLecture(_lecture))

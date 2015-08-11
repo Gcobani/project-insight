@@ -9,7 +9,7 @@
 {
     @Html.AntiForgeryToken()
 
-   @* @Html.ValidationSummary("", new { @class = "text-danger" }) *@
+    @Html.ValidationSummary("", new { @class = "text-danger" })
     <br/>
     <div class="container">
         <paper-material elevation="3" class="smooth">
@@ -23,6 +23,23 @@
 
             <div class="row">
                 <div class="container" style="align-content:center">
+
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            @if (Model.Name != null && Model != null)
+                            {
+                                <paper-input label="Student Number" id="StudentNumber" name="StudentNumber" value="@Model.StudentNumber"></paper-input>
+                            }
+                            else
+                            {
+                                <paper-input label="Student Number" id="StudentNumber" name="StudentNumber"></paper-input>
+                            }
+
+                            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
 
                     <div class="row">
                         <div class="col-md-1"></div>

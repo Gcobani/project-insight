@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Owin;
 using Emgu.CV;
+using Insight.Data;
+using Insight.BLogic;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using Emgu.CV.UI;
@@ -86,13 +88,19 @@ namespace Insight.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            List<SelectListItem> myItems = new List<SelectListItem>();
-            myItems.Add(new SelectListItem { Text = "23", Value = "1", Selected = true });
-            myItems.Add(new SelectListItem { Text = "24", Value = "2" });
-            SelectList myList = new SelectList(myItems);
-            ViewData["Qualifications"] = myList;
+
+            BusinessLogicHandler _gateWay = new BusinessLogicHandler();
+
+            List<Qualification> _qualifications = new List<Qualification>();
+            _qualifications = _gateWay.GetQualifications();
+            List<SelectListItem> _qualList = new List<SelectListItem>();
+            foreach (var _qualification in _qualifications)
+            {
+                _qualList.Add(new SelectListItem { Text = _qualification.QualificationName, Value = _qualification.QualificationCode.ToString() });
+            }
+            ViewData["Qualifications"] = _qualList;
             RegisterViewModel model = new RegisterViewModel();
-            model.Qualificaions = myItems;
+            model.Qualificaions = _qualList;
             return View(model);
         }
 
@@ -101,16 +109,21 @@ namespace Insight.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase picture)
+        public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase picture, FormCollection collector)
         {
-            _DetectFace(picture);
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            _DetectFace(picture, user.Id);
             model.Picture = picture;
+            BusinessLogicHandler _gateWay = new BusinessLogicHandler();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
-                Student stud = new Student(); Qualification qual = new Qualification();
-                stud.Name = model.Name; stud.Surname = model.Surname; stud.StudentNumber = model.StudentNumber; 
-                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+                Student _student = new Student(); Qualification _qualification = new Qualification(); 
+                _student.Name = model.Name; _student.Surname = model.Surname; _student.StudentNumber = model.StudentNumber;
+                _student.User_Id = user.Id; _student.QualificationCode = Convert.ToInt32(collector.GetValue("Qualifications").AttemptedValue);
+                IdentityResult result = await UserManager.CreateAsync(user, model.Password); 
+                if(_gateWay.InsertStudent(_student))
+                { }
+                else { IdentityResult cv = new IdentityResult("error creating new student"); result = cv; }
                 if (result.Succeeded)
                 {
                     await SignInAsync(user, isPersistent: false);
@@ -121,7 +134,7 @@ namespace Insight.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("studReg", "Module");
+                    return RedirectToAction("studReg", "Module", new { _student });
                 }
                 else
                 {
@@ -130,10 +143,24 @@ namespace Insight.Controllers
             }
 
             // If we got this far, something failed, redisplay form
+
+            #region Load dropdown ON_ERROR
+
+            List<Qualification> _qualifications = new List<Qualification>();
+            _qualifications = _gateWay.GetQualifications();
+            List<SelectListItem> _qualList = new List<SelectListItem>();
+            foreach (var _qualification in _qualifications)
+            {
+                _qualList.Add(new SelectListItem { Text = _qualification.QualificationName, Value = _qualification.QualificationCode.ToString() });
+            }
+            ViewData["Qualifications"] = _qualList;
+            model.Qualificaions = _qualList;
+
+            #endregion
             return View(model);
         }
 
-        internal void _DetectFace(HttpPostedFileBase picture)
+        internal void _DetectFace(HttpPostedFileBase picture, string User_Id)
         {
             #region preping things
 
@@ -172,7 +199,7 @@ namespace Insight.Controllers
                         Graphics g = Graphics.FromImage(extractedFace);
                         Bitmap input = _grayImageStream.ToBitmap();
                         g.DrawImage(input, 0, 0, f, GraphicsUnit.Pixel);
-                        extractedFace.Save(HttpContext.Server.MapPath("~/Uploads/face"+counter.ToString()+".jpg"), System.Drawing.Imaging.ImageFormat.Jpeg);
+                        extractedFace.Save(HttpContext.Server.MapPath("~/Uploads/"+User_Id+".jpg"), System.Drawing.Imaging.ImageFormat.Jpeg);
                         counter++;
                     }
                 }

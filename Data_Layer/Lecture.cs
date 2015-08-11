@@ -8,6 +8,7 @@ namespace Insight.Data
 {
     public class Lecture
     {
+        public int LUI { get; set; }
         public string ModuleCode { get; set; }
         public DateTime TimeOfDay { get; set; }
         public string VenueCode { get; set; }

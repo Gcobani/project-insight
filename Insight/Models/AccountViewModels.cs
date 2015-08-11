@@ -61,7 +61,7 @@ namespace Insight.Models
     public class RegisterViewModel
     {
         [Required]
-        [StringLength(10, MinimumLength=10)]
+        [StringLength(10, MinimumLength=9)]
         public string StudentNumber { get; set; }
         [Required]
         public HttpPostedFileBase Picture { get; set; }

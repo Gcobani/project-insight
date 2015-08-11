@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace Insight.Data
 {
-    public class Student
+    public class Lecturer
     {
         public string User_Id { get; set; }
-        public string StudentNumber { get; set; }
+        public string StaffNumber { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public int QualificationCode { get; set; }
     }
 }
