@@ -10,7 +10,7 @@
     <br/>
     <paper-material elevation="3" class="smooth container">
         <div class="row" style="text-align:center">
-            <h2>Create New Venue</h2>
+            <h2>Schedule New Lecture</h2>
             <hr />
         </div>
         <div class="row container">
@@ -31,12 +31,26 @@
             }else{
                 <paper-input name="StaffNumber" id="StaffNumber" label="Staff Number"></paper-input> @Html.ValidationMessageFor(model => model.StaffNumber, "", new { @class = "text-danger" })
             }
-            <br />
-            @if(Model.TimeOfDay != null){
-                <paper-input name="TimeOfDay" id="TimeOfDay" label="Time Of Day" value="@Model.TimeOfDay"></paper-input> @Html.ValidationMessageFor(model => model.TimeOfDay, "", new { @class = "text-danger" })
-            }else{
-                <paper-input name="TimeOfDay" id="TimeOfDay" label="Time Of Day"></paper-input> @Html.ValidationMessageFor(model => model.TimeOfDay, "", new { @class = "text-danger" })
-            }
+        </div>
+        <br />
+        <div class="row">
+            <div class="container">
+                <template is="dom-bind" id="scope">
+                    <section>
+                        <paper-button class="btn" on-tap="showDialog" raised>Pick Time</paper-button>
+                        <paper-dialog id="dialog" class="paper-time-picker-dialog" modal>
+                            <paper-time-picker id="picker" time=""></paper-time-picker>
+                            <div class="buttons">
+                                <paper-button dialog-dismiss>CANCEL</paper-button>
+                                <paper-button dialog-confirm on-tap="timeSelected">OK</paper-button>
+                            </div>
+                        </paper-dialog>
+
+                        <label style="font-size:19px" id="timeHold" name="timeHold"></label>
+                    </section>
+                </template>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
         </div>
         <br />
         <div class="row">
@@ -48,5 +62,22 @@
         </div>
         <br />
     </paper-material>
+    
+    
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var scope = document.querySelector('#scope');
+        var hc = scope.$.picker.time;
+      scope.timeSelected = function() {
+          scope.time = scope.$.picker.time;
+          hc = scope.$.picker.time;
+          document.getElementById('timeHold').innerHTML = hc;
+      };
+      scope.showDialog = function() {
+        this.$.dialog.toggle();
+      };
+      document.getElementById('timeHold').innerHTML = hc;
+    });
+  </script>
 }
 
