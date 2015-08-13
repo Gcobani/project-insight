@@ -35,6 +35,23 @@
         <br />
         <div class="row">
             <div class="container">
+                    <section id="dateScope">
+                        <h1></h1>
+                        <paper-button class="btn" on-tap="showDateDialog" raised>Change Date</paper-button>
+
+                        <paper-dialog id="dateDialog" class="paper-date-picker-dialog" modal on-iron-overlay-closed="dismissDialog">
+                            <paper-date-picker id="picker" responsive-width="655px"></paper-date-picker>
+                            <div class="buttons">
+                                <paper-button dialog-dismiss>Cancel</paper-button>
+                                <paper-button dialog-confirm>OK</paper-button>
+                            </div>
+                        </paper-dialog>
+                    </section>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="container">
                 <template is="dom-bind" id="scope">
                     <section>
                         <paper-button class="btn" on-tap="showDialog" raised>Pick Time</paper-button>
@@ -77,7 +94,45 @@
         this.$.dialog.toggle();
       };
       document.getElementById('timeHold').innerHTML = hc;
+
+
+
+
+      var datescope = document.querySelector('#dateScope');
+      datescope.dateFormat = datescope.$.picker.dateFormat;
+      datescope.dismissDialog = function (event) {
+          if (event.detail.confirmed) {
+              datescope.date = datescope.$.picker.date;
+          }
+      };
+      datescope.showDateDialog = function () {
+          this.$.dateDialog.toggle();
+      };
+      datescope.date = new Date();
+
+
+
+
+
     });
   </script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        var datescope = document.querySelector('#dateScope');
+        datescope.dateFormat = datescope.$.picker.dateFormat;
+        datescope.dismissDialog = function (event) {
+            if (event.detail.confirmed) {
+                datescope.date = datescope.$.picker.date;
+            }
+        };
+        datescope.showDateDialog = function () {
+            this.$.dateDialog.toggle();
+        };
+        datescope.date = new Date();
+    });
+
+    </script>
 }
 
