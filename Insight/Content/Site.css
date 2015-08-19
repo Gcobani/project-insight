@@ -40,7 +40,7 @@ textarea {
     background:#ff0000
 }
 h2, h1, h3, h4, label{
-    font-family:Raleway;
+    font-family:Raleway, sans-serif;
 }
 .smoother{
     border-radius:5px 5px 5px 5px;
@@ -49,3 +49,4 @@ h2, h1, h3, h4, label{
 paper-radio-button {
         display: block;
 }
+

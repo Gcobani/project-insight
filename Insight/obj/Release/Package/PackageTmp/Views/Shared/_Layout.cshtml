@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href='http://fonts.googleapis.com/css?family=Roboto:100italic,300,300italic,400' rel='stylesheet' type='text/css'>
+    <script src="~/Components/webcomponentsjs/webcomponents.min.js"></script>
+    <link rel="import" href="~/Components/paper-input/all-imports.html"/>
+    <link rel="import" href="~/Components/paper-button/paper-button.html"/>
+    <link rel="import" href="~/Components/paper-material/paper-material.html" />
+    <link rel="import" href="~/Components/paper-toggle-button/paper-toggle-button.html" />
+    <link rel="import" href="~/Components/paper-styles/paper-styles.html" />
+    <link rel="import" href="~/Components/paper-checkbox/paper-checkbox.html" />
+    <link rel="import" href="~/Components/iron-dropdown/iron-dropdown.html"/>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Insight", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Attendance <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Module", "Module", "Home")</li>
+                            <li>@Html.ActionLink("Month", "Month", "Home")</li>
+                            <li>@Html.ActionLink("Year", "Year", "Home")</li>
+                            <li>@Html.ActionLink("Comparism", "Comparism", "Home")</li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("About Insight", "About", "Home")</li>
+                    <li>@Html.ActionLink("Insight", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id="myModalContent">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="body-content">
+        @RenderBody()
+        <br />
+        <div class="row">
+
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </div>
+
+    <script>
+    $('.footer').css('margin-top', $(document).height() - ($('.body-content').height()) - $('.footer').height());
+    </script>
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/modalform")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

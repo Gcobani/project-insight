@@ -37,7 +37,7 @@ namespace Insight.Controllers
 
         // POST: Lecture/Create
         [HttpPost]
-        public ActionResult Create(Lecture _lecture)
+        public ActionResult Create(Lecture _lecture, FormCollection collector)
         {
             BusinessLogicHandler _gateWay = new BusinessLogicHandler();
 
@@ -58,7 +58,11 @@ namespace Insight.Controllers
             #region Setting things up
 
             _lecture.StaffNumber = staffMember.StaffNumber;
-
+            DateTime date;
+            DateTime.TryParse(collector.GetValue("dateHoldhidden").AttemptedValue, out date);
+            string[] time = collector.GetValue("timeHoldhidden").AttemptedValue.Split(':');
+            date.AddHours(double.Parse(time[0]));
+            date.AddMinutes(double.Parse(time[1])); //theory
             #endregion
             try
             {

@@ -19,14 +19,17 @@ namespace Insight.Migrations
         protected override void Seed(Insight.Models.ApplicationDbContext context)
         {
             var userStore = new UserStore<ApplicationUser>(context);
-            var roleStore = new RoleStore<IdentityRole>(context);//
+            var roleStore = new RoleStore<IdentityRole>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
             var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-            var user = new ApplicationUser { UserName = "admin@insight.io", Email = "admin@insight.io" };
-            userManager.Create(user, "password");
-            roleManager.Create(new IdentityRole { Name = "root" });
-            userManager.AddToRole(user.Id, "root");
+            if (!context.Users.Any(admin => admin.UserName == "admmin@insight.io"))
+            {
+                var user = new ApplicationUser { UserName = "admin@insight.io", Email = "admin@insight.io" };
+                userManager.Create(user, "password");
+                roleManager.Create(new IdentityRole { Name = "root" });
+                userManager.AddToRole(user.Id, "root");
+            }
         }
     }
 }

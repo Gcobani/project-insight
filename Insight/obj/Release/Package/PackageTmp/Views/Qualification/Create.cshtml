@@ -1,0 +1,49 @@
+﻿@model Insight.Data.Qualification
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("Create", "Qualification", FormMethod.Post, new{@role="form", @name="createQual"}) )
+{
+    @Html.AntiForgeryToken()
+        <br />
+    <paper-material class="container" elevation="3">
+
+        <div class="row" style="text-align:center">
+            <h2>Create new Qualification</h2>
+            <hr />
+        </div>
+        <br />
+        <div class="row">
+            <div class="container">
+                <br />
+
+                @if (Model.QualificationName != null)
+                {
+                    <paper-input label="Qualification Name" id="QualificationName" name="QualificationName" value="@Model.QualificationName"></paper-input> @Html.ValidationMessageFor(model => model.QualificationName, "", new { @class = "text-danger" })
+                }
+                else
+                {
+                    <paper-input label="Qualification Name" id="QualificationName" name="QualificationName"></paper-input> @Html.ValidationMessageFor(model => model.QualificationName, "", new { @class = "text-danger" })
+                }
+            </div>
+            <br />
+        </div>
+
+        <div class="row">
+            <hr />
+            <div class="container">
+                <paper-button raised class="accept-button pull-left" onclick="history.go(-1);">Back</paper-button>
+                <paper-button raised class="accept-button pull-right" onclick="document.createQual.submit();">Create</paper-button>
+            </div>
+        </div>
+        <br />
+    </paper-material>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

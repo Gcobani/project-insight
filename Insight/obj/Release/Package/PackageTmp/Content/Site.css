@@ -1,0 +1,51 @@
+﻿body {
+    font-family:Roboto, Raleway;
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.smooth {
+    border-radius:2px 2px 2px 2px;
+}
+
+/*Fix the footer to the bottom of the page*/
+.footer {
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 40px;
+  padding-top: 10px;
+  font-size: .9em;
+  border-top: 1px solid #E5E5E5;
+}
+
+.accept-button {
+    width:300px;
+    background: #4285f4;
+}
+.decline-button {
+    background:#ff0000
+}
+h2, h1, h3, h4, label{
+    font-family:Raleway;
+}
+.smoother{
+    border-radius:5px 5px 5px 5px;
+    border-width:1px;
+}
+paper-radio-button {
+        display: block;
+}

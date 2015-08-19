@@ -1,0 +1,135 @@
+﻿@using System.Web.Mvc
+@model Insight.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", @name = "formReg", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <br/>
+    <div class="container">
+        <paper-material elevation="3" class="smooth">
+
+            <div class="row">
+                <div class="container" style="text-align:center">
+                    <h3>Register a new account.</h3>
+                    <hr />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="container" style="align-content:center">
+
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            @if (Model.Name != null && Model != null)
+                            {
+                                <paper-input label="Student Number" id="StudentNumber" name="StudentNumber" value="@Model.StudentNumber"></paper-input>
+                            }
+                            else
+                            {
+                                <paper-input label="Student Number" id="StudentNumber" name="StudentNumber"></paper-input>
+                            }
+
+                            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            @if(Model.Name != null && Model != null){
+                                <paper-input label="Name" id="Name" name="Name" value="@Model.Name"></paper-input>
+                            }else{
+                                <paper-input label="Name" id="Name" name="Name"></paper-input>
+                            }
+                            
+                            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            @if(Model.Surname != null && Model != null){
+                                <paper-input label="Surname" id="Surname" name="Surname" value="@Model.Surname"></paper-input>
+                            }else{
+                                <paper-input label="Surname" id="Surname" name="Surname"></paper-input>
+                            }
+                             @Html.ValidationMessageFor(m => m.Surname, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            @if(Model.Email != null && Model != null){
+                                <paper-input label="Email" type="Email" name="Email" id="Email" value="@Model.Email" auto-validate error-message="Inavlid email address! Use notation 'example@somewhere.com'"></paper-input>
+                            }else{
+                                <paper-input label="Email" type="Email" name="Email" id="Email" auto-validate error-message="Inavlid email address! Use notation 'example@somewhere.com'"></paper-input>
+                            }
+                            
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            <paper-input label="Password" id="Password" name="Password" type="Password"></paper-input> @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            <paper-input label="Confirm Password" name="ConfirmPassword" id="ConfirmPassword" type="password"></paper-input> @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+
+                    <br />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-11 form-inline">
+                  Upload an image :  <input type="file" name="Picture" id="Picture" accept="image/*" /> @Html.ValidationMessageFor(m => m.Picture, "", new { @class = "text-danger" })
+                </div>
+                
+            </div>
+            <br />
+
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-11 form-inline"> Please Select Qualification : 
+                   @Html.DropDownList("Qualifications", Model.Qualificaions, new { @class = "dropdown form-control" })
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="container">
+                    <hr />
+                    <div class="container">
+                        <paper-button class="pull-left accept-button" raised onclick="history.go(-1);" style="width:300px">Back</paper-button>
+                        <paper-button class="pull-right accept-button" raised onclick="document.formReg.submit();" style="width:300px">Next</paper-button>
+                    </div>
+                </div>
+            </div>
+            <br />
+        </paper-material>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

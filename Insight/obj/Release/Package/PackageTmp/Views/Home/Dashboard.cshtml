@@ -1,0 +1,13 @@
+﻿@using Insight.Helpers
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Dashboard</h2>
+@using(@Html.BeginForm("Dashboard", "Home")){
+@Html.PaperInput("model", "hoj")
+<paper-input label="try" value="i am getting really tired of this shit" id="theOne" name="theOne"></paper-input>
+
+<button onclick="document.Submit();"> submit</button>
+}

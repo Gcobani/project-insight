@@ -1,0 +1,52 @@
+﻿@model Insight.Data.Venue
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("Create", "Venue", FormMethod.Post, new { @role = "form", @name = "createVenue" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <br/>
+    
+    <paper-material elevation="3" class="container smooth">
+        <div class="row" style="text-align:center">
+            <h2>Create New Venue</h2>
+            <hr />
+        </div>
+        <div class="row container">
+            @if(Model.VenueCode != null){
+                <paper-input label="Venue Code" id="VenueCode" name="VenueCode" value="@Model.VenueCode"></paper-input> @Html.ValidationMessageFor(model => model.VenueCode, "", new { @class = "text-danger" })
+            }
+            else
+            {
+                <paper-input label="Venue Code" id="VenueCode" name="VenueCode"></paper-input> @Html.ValidationMessageFor(model => model.VenueCode, "", new { @class = "text-danger" })
+            }
+            <br />
+            @if(Model.VenueName != null){
+                <paper-input label="Venue Name" name="VenueName" id="VenueName" vlaue="@Model.VenueName"></paper-input> @Html.ValidationMessageFor(model => model.VenueName, "", new { @class = "text-danger" })
+            }
+            else
+            {
+                <paper-input label="Venue Name" name="VenueName" id="VenueName"></paper-input> @Html.ValidationMessageFor(model => model.VenueName, "", new { @class = "text-danger" })
+            }
+            <br />
+            @if(Model.VenueSize != null && Model.VenueSize != 0){
+                <paper-input label="Venue Size" name="VenueSize" id="VenueSize" value="@Model.VenueSize"></paper-input> @Html.ValidationMessageFor(model => model.VenueSize, "", new { @class = "text-danger" })
+            }else{
+                <paper-input label="Venue Size" name="VenueSize" id="VenueSize"></paper-input> @Html.ValidationMessageFor(model => model.VenueSize, "", new { @class = "text-danger" })
+            }
+        </div>
+        <br />
+        <div class="row">
+            <hr />
+            <div class="container">
+                <paper-button raised class="accept-button pull-left" onclick="history.go(-1);">Back</paper-button>
+                <paper-button raised class="accept-button pull-right" onclick="document.createVenue.submit();">Create</paper-button>
+            </div>
+        </div>
+        <br />
+    </paper-material>
+    
+}
