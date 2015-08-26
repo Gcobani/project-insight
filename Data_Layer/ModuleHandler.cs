@@ -17,6 +17,7 @@ namespace Insight.Data
                 new SqlParameter("@ModuleCode", _module.ModuleCode),
                 new SqlParameter("@ModuleName", _module.ModuleName),
                 new SqlParameter("@NumberOfClasses",_module.NumberOfScheduledClasses),
+                new SqlParameter("@StaffNumber", _module.StaffNumber),
                 new SqlParameter("@QualificationCode", _module.QualificationCode)
             };
             return DataAccess.ExecuteNonQuery("sp_InsertModule", CommandType.StoredProcedure,
@@ -38,6 +39,7 @@ namespace Insight.Data
                     _module.NumberOfScheduledClasses = Convert.ToInt32(row["NumberOfScheduledClasses"]);
                     _module.ModuleCode = row["ModuleCode"].ToString();
                     _module.ModuleName = row["ModuleName"].ToString();
+                    _module.StaffNumber = row["StaffNumber"].ToString();
                     _module.QualificationCode = Convert.ToInt32(row["QualificationCode"]);
                 }
             }
@@ -48,7 +50,7 @@ namespace Insight.Data
         {
             List<Module> _moduleList = null;
 
-            using (DataTable table = DataAccess.ExecuteSelectCommand("",
+            using (DataTable table = DataAccess.ExecuteSelectCommand("sp_GetAllModules",
                 CommandType.StoredProcedure))
             {
                 if (table.Rows.Count > 0)
@@ -60,6 +62,7 @@ namespace Insight.Data
                         _module.NumberOfScheduledClasses = Convert.ToInt32(row["NumberofScheduledClasses"]);
                         _module.ModuleCode = row["ModuleCode"].ToString();
                         _module.ModuleName = row["ModuleName"].ToString();
+                        _module.StaffNumber = row["StaffNumber"].ToString();
                         _module.QualificationCode = Convert.ToInt32(row["QualificationCode"]);
                         _moduleList.Add(_module);
                     }
@@ -67,6 +70,34 @@ namespace Insight.Data
             }
             return _moduleList;
         }
+
+
+        public List<Module> GetAllModulesForLecturer(string StaffNumber)
+        {
+            List<Module> _moduleList = null;
+            SqlParameter[] Params = { new SqlParameter("@StaffNumber", StaffNumber) };
+            using (DataTable table = DataAccess.ExecuteSelectCommand("sp_GetModules4Lecturer",
+                CommandType.StoredProcedure))
+            {
+                if (table.Rows.Count > 0)
+                {
+                    _moduleList = new List<Module>();
+                    foreach (DataRow row in table.Rows)
+                    {
+                        Module _module = new Module();
+                        _module.NumberOfScheduledClasses = Convert.ToInt32(row["NumberofScheduledClasses"]);
+                        _module.ModuleCode = row["ModuleCode"].ToString();
+                        _module.ModuleName = row["ModuleName"].ToString();
+                        _module.StaffNumber = row["StaffNumber"].ToString();
+                        _module.QualificationCode = Convert.ToInt32(row["QualificationCode"]);
+                        _moduleList.Add(_module);
+                    }
+                }
+            }
+           
+            return _moduleList;
+        }
+
 
         public List<Module> GetModuleForQualification(int QualificationCode)
         {
@@ -83,6 +114,7 @@ namespace Insight.Data
                         _module.NumberOfScheduledClasses = Convert.ToInt32(row["NumberOfScheduledClasses"]);
                         _module.ModuleCode = row["ModuleCode"].ToString();
                         _module.ModuleName = row["ModuleName"].ToString();
+                        _module.StaffNumber = row["StaffNumberbz"].ToString();
                         _moduleList.Add(_module);
                     }
                 }

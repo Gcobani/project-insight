@@ -18,5 +18,6 @@ namespace Insight.Models
         public string ModuleName { get; set; }
         public int NumberOfScheduledClasses { get; set; }
         public IEnumerable<SelectListItem> Qualifications { get; set; }
+        public IEnumerable<SelectListItem> StaffMembers { get; set; }
     }
 }

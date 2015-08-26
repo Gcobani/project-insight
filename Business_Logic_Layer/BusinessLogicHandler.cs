@@ -24,6 +24,9 @@ namespace Insight.BLogic
         public bool InsertLecture(Lecture _lecture)
         { LectureHandler myHandler = new LectureHandler(); return myHandler.NewLecture(_lecture); }
 
+        public bool InsertLecturer(Lecturer _lecturer)
+        { LecturerHandler myHandler = new LecturerHandler(); return myHandler.NewLecturer(_lecturer); }
+
         public bool InsertAttendanceRegister(AttendanceRegister _register)
         { AttendanceRegisterHandler myHandler = new AttendanceRegisterHandler(); return myHandler.NewAttendanceRegister(_register); }
 
@@ -41,6 +44,10 @@ namespace Insight.BLogic
 
         public List<Qualification> GetQualifications()
         { QualificationHandler myHandler = new QualificationHandler(); return myHandler.GetAllQualifications(); }
+        public List<Lecturer> GetAllLecturers()
+        { LecturerHandler myHandler = new LecturerHandler(); return myHandler.GetAllLecturers(); }
+        public List<Module> GetModulesForLecturer(string StaffNumber)
+        { ModuleHandler myHandler = new ModuleHandler(); return myHandler.GetAllModulesForLecturer(StaffNumber); }
         #endregion
 
         #region User Actions

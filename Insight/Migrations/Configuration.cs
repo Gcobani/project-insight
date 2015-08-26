@@ -5,6 +5,7 @@ namespace Insight.Migrations
     using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
+    using Insight.Data;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
@@ -23,12 +24,17 @@ namespace Insight.Migrations
             var userManager = new UserManager<ApplicationUser>(userStore);
             var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-            if (!context.Users.Any(admin => admin.UserName == "admmin@insight.io"))
+            if (!context.Users.Any(admin => admin.UserName == "staff@insight.io"))
             {
-                var user = new ApplicationUser { UserName = "admin@insight.io", Email = "admin@insight.io" };
-                userManager.Create(user, "password");
-                roleManager.Create(new IdentityRole { Name = "root" });
-                userManager.AddToRole(user.Id, "root");
+                var user = new ApplicationUser { UserName = "staff@insight.io", Email = "staff@insight.io" };
+                Lecturer _staff = new Lecturer(); BLogic.BusinessLogicHandler _gateWay = new BLogic.BusinessLogicHandler();
+                _staff.User_Id = user.Id; _staff.Surname = "Poswa"; _staff.Name = "Gcobani"; _staff.StaffNumber = "210139889";
+                if(_gateWay.InsertLecturer(_staff))
+                {
+                    userManager.Create(user, "password");
+                    roleManager.Create(new IdentityRole { Name = "root" });
+                    userManager.AddToRole(user.Id, "root");
+                }
             }
         }
     }

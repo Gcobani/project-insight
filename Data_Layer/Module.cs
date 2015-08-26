@@ -11,6 +11,7 @@ namespace Insight.Data
         public string ModuleCode { get; set; }
         public string ModuleName { get; set; }
         public int NumberOfScheduledClasses { get; set; }
+        public string StaffNumber { get; set; }
         public int QualificationCode { get; set; }
     }
 }

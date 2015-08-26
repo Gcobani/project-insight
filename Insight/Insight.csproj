@@ -197,6 +197,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AttendanceViewModel.cs" />
     <Compile Include="Models\CreateModuleViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -651,6 +652,7 @@
     <Content Include="haarcascades\haarcascade_profileface.xml" />
     <Content Include="haarcascades\haarcascade_righteye_2splits.xml" />
     <Content Include="haarcascades\haarcascade_upperbody.xml" />
+    <Content Include="Img\bground.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Components\font-roboto\bower.json" />
@@ -818,6 +820,7 @@
     <Content Include="Views\Venue\Create.cshtml" />
     <Content Include="Views\Lecture\Create.cshtml" />
     <Content Include="Views\Attendance\Index.cshtml" />
+    <Content Include="Views\Attendance\TakeAttendance.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

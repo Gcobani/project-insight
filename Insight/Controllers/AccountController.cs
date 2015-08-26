@@ -18,7 +18,6 @@ using Emgu.CV.Structure;
 using Emgu.CV.UI;
 using Emgu.CV.Cuda;
 using Insight.Models;
-using Insight.Data;
 using System.IO;
 using System.Drawing;
 

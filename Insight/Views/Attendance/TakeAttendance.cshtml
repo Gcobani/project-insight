@@ -1,0 +1,27 @@
+﻿@model Insight.Models.AttendanceViewModel
+
+@using (Html.BeginForm("TakeAttendance", "Attendance", FormMethod.Post, new { @name="frmAtt"}))
+{
+    <div class="row">
+        <div class="container">
+            <label>Select Module :</label> @Html.DropDownList("Modules", Model.Modules, new { @class="form-control"})
+        </div>
+    </div>
+    <div class="row">
+        <div class="container">
+            <br /><br />
+            <label></label>Please select picture : <input type="file" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="container">
+            <hr />
+            <paper-button raised class="accept-button pull-right" onclick="document.frmAtt.submit();">Submit</paper-button>
+            <paper-button raised class="accept-button pull-left" onclick="history.go(-1);">Back</paper-button>
+        </div>
+        <br />
+    </div>
+}
+
+

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Insight.Models;
 using Insight.Data;
 using Insight.BLogic;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Insight.Controllers
 {
@@ -46,6 +47,24 @@ namespace Insight.Controllers
 
             #endregion
 
+            #region Get Lecturers
+            
+            ApplicationDbContext dataSocket = new ApplicationDbContext();
+            UserStore<ApplicationUser> myStore = new UserStore<ApplicationUser>(dataSocket);
+            ApplicationUserManager userMgr = new ApplicationUserManager(myStore);
+            var user = userMgr.FindByNameAsync(HttpContext.User.Identity.Name);
+            List<Lecturer> _staffList = new List<Lecturer>();
+            List<SelectListItem> _drpdwn = new List<SelectListItem>();
+            _staffList = _gateWay.GetAllLecturers();
+            foreach (var _staff in _staffList)
+            {
+                if (_staff.User_Id == user.Id.ToString())
+                    _drpdwn.Add(new SelectListItem { Text = _staff.Name, Value = _staff.StaffNumber, Selected = true });
+                else
+                    _drpdwn.Add(new SelectListItem { Text = _staff.Name, Value = _staff.StaffNumber });
+            }
+            #endregion
+
             CreateModuleViewModel _model = new CreateModuleViewModel();
             List<SelectListItem> _qualList = new List<SelectListItem>();
 
@@ -53,6 +72,8 @@ namespace Insight.Controllers
                 _qualList.Add(new SelectListItem { Text=_qualification.QualificationName, Value=_qualification.QualificationCode.ToString() });
             }
             ViewData["Qualifications"] = _qualList;
+            ViewData["StaffList"] = _drpdwn;
+            _model.StaffMembers = _drpdwn;
             _model.Qualifications = _qualList;
             return View(_model);
         }

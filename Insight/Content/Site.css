@@ -1,7 +1,8 @@
 ﻿body {
-    font-family:Roboto, Raleway;
+    font-family: Roboto, Raleway;
     padding-top: 50px;
     padding-bottom: 20px;
+    background:url(../Img/bground.jpg)
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -18,35 +19,47 @@ textarea {
 }
 
 .smooth {
-    border-radius:2px 2px 2px 2px;
+    border-radius: 2px 2px 2px 2px;
 }
 
 /*Fix the footer to the bottom of the page*/
 .footer {
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 40px;
-  padding-top: 10px;
-  font-size: .9em;
-  border-top: 1px solid #E5E5E5;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 40px;
+    padding-top: 10px;
+    font-size: .9em;
+    border-top: 1px solid #E5E5E5;
 }
 
 .accept-button {
-    width:300px;
+    width: 300px;
     background: #4285f4;
 }
+
 .decline-button {
-    background:#ff0000
-}
-h2, h1, h3, h4, label{
-    font-family:Raleway, sans-serif;
-}
-.smoother{
-    border-radius:5px 5px 5px 5px;
-    border-width:1px;
-}
-paper-radio-button {
-        display: block;
+    background: #ff0000;
 }
 
+h2, h1, h3, h4, label {
+    font-family: Raleway, sans-serif;
+}
+
+.smoother {
+    border-radius: 5px 5px 5px 5px;
+    border-width: 1px;
+}
+
+paper-radio-button {
+    display: block;
+}
+
+paper-tabs, paper-toolbar {
+    background-color: #00bcd4;
+    color: #fff;
+    box-shadow: none;
+}
+.paperMaterial{
+    background-color:white;
+}
