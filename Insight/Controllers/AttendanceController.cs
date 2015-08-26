@@ -3,34 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Insight.BLogic;
+using Emgu.CV.CvEnum;
+using Emgu.CV.UI;
+using Emgu.Util;
+using Emgu.CV.Structure;
 using Insight.Data;
 using Insight.Models;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Threading.Tasks;
+using Emgu.CV;
+using System.Drawing;
 
 namespace Insight.Controllers
 {
     public class AttendanceController : Controller
     {
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
-        }
-        public ActionResult TakeAttendance()
-        {
-
             #region Get Identity
             BusinessLogicHandler _gateWay = new BusinessLogicHandler();
             ApplicationDbContext dataSocket = new ApplicationDbContext();
             UserStore<ApplicationUser> myStore = new UserStore<ApplicationUser>(dataSocket);
             ApplicationUserManager UserManager = new ApplicationUserManager(myStore);
-            var _user = UserManager.FindByEmailAsync(HttpContext.User.Identity.Name);
+            var _user = await UserManager.FindByNameAsync(User.Identity.Name);
             Lecturer _staff = new Lecturer();
             _staff = _gateWay.GetLecturer(_user.Id.ToString());
             #endregion
 
             #region Get The Modules
-            
+
             AttendanceViewModel _model = new AttendanceViewModel();
             List<Module> _modList = new List<Module>();
             List<SelectListItem> _selectList = new List<SelectListItem>();
@@ -44,8 +46,28 @@ namespace Insight.Controllers
 
             ViewData["Modules"] = _selectList;
             _model.Modules = _selectList;
-
             return View(_model);
+        }
+        public ActionResult TakeAttendance(HttpPostedFileBase img, FormCollection collector)
+        {
+            #region Setting things up
+
+            Image<Bgr, byte> _imageStream;
+            Image<Gray, byte> _grayImageStream;
+            int counter = 0;
+            string Date = DateTime.Today.ToShortDateString();
+            string path = "";
+            List<Rectangle> faces = new List<Rectangle>();
+
+            #endregion
+
+            #region Load Training Set
+
+
+
+            #endregion
+
+            return View();
         }
     }
 }

@@ -19,8 +19,9 @@ namespace Insight.Data
                 CommandType.StoredProcedure, Params))
             {
                 if (table.Rows.Count == 1)
-                {
+                { 
                     DataRow row = table.Rows[0];
+                    _lecturer = new Lecturer();
                     _lecturer.Name = row["Name"].ToString();
                     _lecturer.Surname = row["Surname"].ToString();
                     _lecturer.User_Id = row["User_Id"].ToString();

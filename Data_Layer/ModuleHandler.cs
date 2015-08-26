@@ -36,7 +36,7 @@ namespace Insight.Data
                 {
                     DataRow row = table.Rows[0];
                     _module = new Module();
-                    _module.NumberOfScheduledClasses = Convert.ToInt32(row["NumberOfScheduledClasses"]);
+                    _module.NumberOfScheduledClasses = Convert.ToInt32(row["NumberOfClasses"]);
                     _module.ModuleCode = row["ModuleCode"].ToString();
                     _module.ModuleName = row["ModuleName"].ToString();
                     _module.StaffNumber = row["StaffNumber"].ToString();
@@ -59,7 +59,7 @@ namespace Insight.Data
                     foreach (DataRow row in table.Rows)
                     {
                         Module _module = new Module();
-                        _module.NumberOfScheduledClasses = Convert.ToInt32(row["NumberofScheduledClasses"]);
+                        _module.NumberOfScheduledClasses = Convert.ToInt32(row["NumberOfClasses"]);
                         _module.ModuleCode = row["ModuleCode"].ToString();
                         _module.ModuleName = row["ModuleName"].ToString();
                         _module.StaffNumber = row["StaffNumber"].ToString();
@@ -76,8 +76,8 @@ namespace Insight.Data
         {
             List<Module> _moduleList = null;
             SqlParameter[] Params = { new SqlParameter("@StaffNumber", StaffNumber) };
-            using (DataTable table = DataAccess.ExecuteSelectCommand("sp_GetModules4Lecturer",
-                CommandType.StoredProcedure))
+            using (DataTable table = DataAccess.ExecuteParamatizedSelectCommand("sp_GetModules4Lecturer",
+                CommandType.StoredProcedure, Params))
             {
                 if (table.Rows.Count > 0)
                 {
@@ -85,7 +85,7 @@ namespace Insight.Data
                     foreach (DataRow row in table.Rows)
                     {
                         Module _module = new Module();
-                        _module.NumberOfScheduledClasses = Convert.ToInt32(row["NumberofScheduledClasses"]);
+                        _module.NumberOfScheduledClasses = Convert.ToInt32(row["NumberOfClasses"]);
                         _module.ModuleCode = row["ModuleCode"].ToString();
                         _module.ModuleName = row["ModuleName"].ToString();
                         _module.StaffNumber = row["StaffNumber"].ToString();
@@ -111,7 +111,7 @@ namespace Insight.Data
                     foreach (DataRow row in table.Rows)
                     {
                         Module _module = new Module();
-                        _module.NumberOfScheduledClasses = Convert.ToInt32(row["NumberOfScheduledClasses"]);
+                        _module.NumberOfScheduledClasses = Convert.ToInt32(row["NumberOfClasses"]);
                         _module.ModuleCode = row["ModuleCode"].ToString();
                         _module.ModuleName = row["ModuleName"].ToString();
                         _module.StaffNumber = row["StaffNumberbz"].ToString();

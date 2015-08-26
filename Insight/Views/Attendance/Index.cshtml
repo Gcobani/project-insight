@@ -1,4 +1,4 @@
-﻿
+﻿@model Insight.Models.AttendanceViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -18,7 +18,7 @@
                     <div class="container" style="text-align:center"><h2>Take Attendance</h2></div>
                     <hr />
                     @{
-                        Html.RenderPartial("TakeAttendance");
+                        Html.RenderPartial("TakeAttendance", Model);
                     }
                 </div>
                 <div>
