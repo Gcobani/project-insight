@@ -153,12 +153,10 @@ namespace Insight.Controllers
         {
             #region preping things
 
-            int numberOfFacesDetected = 0;
             Image<Bgr, byte> _imageStream;
             Image<Gray, byte> _grayImageStream;
             int counter = 0;
             string Date = DateTime.Today.ToShortDateString();
-            string path = "";
             List<Rectangle> faces = new List<Rectangle>();
             #endregion
 

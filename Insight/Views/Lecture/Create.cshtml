@@ -9,12 +9,12 @@
 {
     @Html.AntiForgeryToken()
     <br/>
-    <paper-material elevation="3" class="smooth container paperMaterial">
+    <paper-material elevation="3" class="smooth wider paperMaterial">
         <div class="row" style="text-align:center">
             <h2>Schedule New Lecture</h2>
             <hr />
         </div>
-        <div class="row container">
+        <div class="row button-pad">
             @if(Model.ModuleCode != null){
                 <paper-input name="ModuleCode" id="ModuleCode" label="Module Code" value="@Model.ModuleCode"></paper-input> @Html.ValidationMessageFor(model => model.ModuleCode, "", new { @class = "text-danger" })
             }else{
@@ -35,11 +35,11 @@
         </div>
         <br />
         <div class="row">
-            <div class="container">
+            <div class="pad-me">
                 <template is="dom-bind" id="dateScope">
                     <section>
                         
-                        <paper-button class="btn" on-tap="showDialog" raised>Change Date</paper-button>
+                        <paper-button class="btn" on-tap="showDialog" raised>Change Day</paper-button>
                         <paper-dialog id="dialog" class="paper-date-picker-dialog" modal on-iron-overlay-closed="dismissDialog">
                             <paper-date-picker id="picker" responsive-width="655px"></paper-date-picker>
                             <div class="buttons">
@@ -47,7 +47,7 @@
                                 <paper-button dialog-confirm>OK</paper-button>
                             </div>
                         </paper-dialog>
-                        <label style="font-size:22px" id="dateHold" name="dateHold">{{dateFormat(date, 'LL')}}</label>
+                        <label style="font-size:22px" id="dateHold" name="dateHold">{{dateFormat(date, 'dddd')}}</label>
                         <input type="hidden" name="dateHoldhidden" id="dateHoldhidden" />
                     </section>
                 </template>
@@ -55,10 +55,10 @@
         </div>
         <br />
         <div class="row">
-            <div class="container">
+            <div class="pad-me">
                 <template is="dom-bind" id="scope">
                     <section>
-                        <paper-button class="btn" on-tap="showDialog" raised>Pick Time</paper-button>
+                        <paper-button class="btn" on-tap="showDialog" raised>Start Time</paper-button>
                         <paper-dialog id="dialog" class="paper-time-picker-dialog" modal>
                             <paper-time-picker id="picker" time=""></paper-time-picker>
                             <div class="buttons">
@@ -73,9 +73,10 @@
                 </template>
             </div>
         </div>
+        <br />
         <div class="row">
             <hr />
-            <div class="container">
+            <div class="button-pad">
                 <paper-button raised class="accept-button pull-left" onclick="history.go(-1);">Back</paper-button>
                 <paper-button raised class="accept-button pull-right" onclick="document.createLecture.submit();">Create</paper-button>
             </div>
@@ -88,6 +89,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         var scope = document.querySelector('#scope');
         var hc = scope.$.picker.time;
+        var xyc = "kjv0";
       scope.timeSelected = function() {
           scope.time = scope.$.picker.time;
           hc = scope.$.picker.time;
@@ -100,7 +102,8 @@
       document.getElementById('timeHold').innerHTML = hc;
     });
   </script> 
-    
+ 
+
  <script>
     document.addEventListener('WebComponentsReady', function() {
       var scope = Polymer.dom(document).querySelector('#dateScope');
@@ -116,7 +119,7 @@
       scope.showDialog = function() {
         this.$.dialog.toggle();
       };
-      scope.date = new Date();
+      scope.date = new Date('dddd');
     });
 
   </script>

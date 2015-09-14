@@ -51,18 +51,23 @@ namespace Insight.Controllers
             #endregion
 
             #region Get Lecturer
-            Lecturer staffMember = new Lecturer();
-            staffMember = _gateWay.GetLecturer(user.Id);
+            //Lecturer staffMember = new Lecturer();
+            //staffMember = _gateWay.GetLecturer(user.Id);
             #endregion
 
             #region Setting things up
+            try
+            {
+                string[] dateSlice = collector.GetValue("dateHoldhidden").AttemptedValue.Split(' ');
+                string timeSlice = collector.GetValue("timeHoldhidden").AttemptedValue;
+                _lecture.TimeSlot = dateSlice[0] + " " + timeSlice;
+            }
+            catch
+            {
+                return View(_lecture);
+            }
 
-            _lecture.StaffNumber = staffMember.StaffNumber;
-            DateTime date;
-            DateTime.TryParse(collector.GetValue("dateHoldhidden").AttemptedValue, out date);
-            string[] time = collector.GetValue("timeHoldhidden").AttemptedValue.Split(':');
-            date.AddHours(double.Parse(time[0]));
-            date.AddMinutes(double.Parse(time[1])); //theory
+
             #endregion
             try
             {

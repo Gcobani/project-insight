@@ -10,7 +10,7 @@ namespace Insight.Data
     {
         public int LUI { get; set; }
         public string ModuleCode { get; set; }
-        public DateTime TimeOfDay { get; set; }
+        public string TimeSlot { get; set; }
         public string VenueCode { get; set; }
         public string StaffNumber { get; set; }
     }

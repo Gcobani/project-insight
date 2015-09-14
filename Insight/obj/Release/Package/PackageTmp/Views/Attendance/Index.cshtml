@@ -1,0 +1,32 @@
+﻿@model Insight.Models.AttendanceViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br/>
+<br />
+<paper-material elevation="2" class="container paperMaterial">
+    <div class="row">
+        <template is="dom-bind">
+            <paper-tabs  selected="{{selected}}">
+                <paper-tab>Take Attendance</paper-tab>
+                <paper-tab>Schedule Attendance Taking</paper-tab>
+            </paper-tabs>
+            <br />
+            <iron-pages selected="{{selected}}">
+                <div>
+                    <div class="container" style="text-align:center"><h2>Take Attendance</h2></div>
+                    <hr />
+                    @{
+                        Html.RenderPartial("TakeAttendance", Model);
+                    }
+                </div>
+                <div>
+                    @{
+                        
+                    }
+                </div>
+            </iron-pages>
+        </template>
+    </div>
+</paper-material>

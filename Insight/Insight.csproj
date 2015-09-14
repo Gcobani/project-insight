@@ -45,6 +45,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Emgu.CV.dll</HintPath>
     </Reference>
+    <Reference Include="Emgu.CV.Contrib, Version=3.0.0.2157, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Emgu.CV.Contrib.dll</HintPath>
+    </Reference>
     <Reference Include="Emgu.CV.Cuda, Version=3.0.0.2157, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Emgu.CV.Cuda.dll</HintPath>
@@ -182,6 +186,7 @@
     <Compile Include="Controllers\LectureController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Controllers\QualificationController.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\VenueController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -198,6 +203,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AttendanceViewModel.cs" />
+    <Compile Include="Models\CoreSysFunction.cs" />
     <Compile Include="Models\CreateModuleViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -456,11 +462,6 @@
     <Content Include="Components\paper-checkbox\paper-checkbox.html" />
     <Content Include="Components\paper-checkbox\test\basic.html" />
     <Content Include="Components\paper-checkbox\test\index.html" />
-    <Content Include="Components\paper-date-picker-master\demo.html" />
-    <Content Include="Components\paper-date-picker-master\index.html" />
-    <Content Include="Components\paper-date-picker-master\paper-date-picker-dialog.html" />
-    <Content Include="Components\paper-date-picker-master\paper-date-picker.html" />
-    <Content Include="Components\paper-date-picker-master\paper-year-picker.html" />
     <Content Include="Components\paper-date-picker\.gitignore" />
     <Content Include="Components\paper-date-picker\demo\index.html" />
     <Content Include="Components\paper-date-picker\gulpfile.js" />
@@ -637,6 +638,8 @@
     <Content Include="Components\webcomponentsjs\webcomponents-lite.min.js" />
     <Content Include="Components\webcomponentsjs\webcomponents.js" />
     <Content Include="Components\webcomponentsjs\webcomponents.min.js" />
+    <Content Include="Content\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -662,6 +665,8 @@
     <Content Include="haarcascades\haarcascade_righteye_2splits.xml" />
     <Content Include="haarcascades\haarcascade_upperbody.xml" />
     <Content Include="Img\bground.jpg" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Components\font-roboto\bower.json" />
@@ -715,10 +720,6 @@
     <Content Include="Components\paper-button\README.md" />
     <Content Include="Components\paper-checkbox\bower.json" />
     <Content Include="Components\paper-checkbox\README.md" />
-    <Content Include="Components\paper-date-picker-master\bower.json" />
-    <Content Include="Components\paper-date-picker-master\LICENSE" />
-    <Content Include="Components\paper-date-picker-master\README.md" />
-    <Content Include="Components\paper-date-picker-master\TODO" />
     <Content Include="Components\paper-date-picker\.jshintrc" />
     <Content Include="Components\paper-date-picker\bower.json" />
     <Content Include="Components\paper-date-picker\package.json" />
@@ -830,6 +831,11 @@
     <Content Include="Views\Lecture\Create.cshtml" />
     <Content Include="Views\Attendance\Index.cshtml" />
     <Content Include="Views\Attendance\TakeAttendance.cshtml" />
+    <Content Include="Views\Lecture\time.cshtml" />
+    <Content Include="Views\Attendance\Details.cshtml" />
+    <Content Include="Views\Attendance\ViewAttendees.cshtml" />
+    <Content Include="Views\Attendance\Schedule.cshtml" />
+    <Content Include="Views\Statistics\Monthly.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -878,7 +884,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1060</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1060/</IISUrl>
+          <IISUrl>http://localhost:1070/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

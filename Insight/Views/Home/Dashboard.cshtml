@@ -3,9 +3,64 @@
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<br />
+<br />
+<paper-material elevation="3" class="paperMaterial wider">
+    <div class="row">
+        <div style="text-align:center"><h1>Attendance Statistics</h1></div>
+        <hr />
+    </div>
+    <div class="row">
+        <div style="height:500px;"></div>
+    </div>
+</paper-material>
+<div class="row">
+    <div>&nbsp;</div>
+</div>
+<paper-material elevation="3" class="paperMaterial wider">
+    <div class="row">
+        <div style="text-align:center"><h1>Periodic Statistics</h1></div>
+        <hr />
+        <br />
+        <table class="wider">
+            <tr>
+                <td style="border-right:1px solid ButtonShadow !important; width:33%">
+                    <div style="position:relative">
+                        <paper-item>
+                            <paper-item-body two-line>
+                                <div style="text-align:center"><h2>Yearly</h2></div>
+                                <div style="height:100px"></div>
+                            </paper-item-body>
+                        </paper-item>
+                        <paper-ripple></paper-ripple>
+                    </div>
+                    
+                </td>
+                <td class="pad-me" style="border-right:1px solid ButtonShadow !important; width:33%">
+                    <div style="position:relative" onclick="location.href='@Url.Action("Monthly", "Statistics")'">
+                        <paper-item>
+                            <paper-item-body two-line>
+                                <div style="text-align:center"><h2>Monthly</h2></div>
+                                <div style="height:100px"></div>
+                            </paper-item-body>
+                        </paper-item>
+                        <paper-ripple></paper-ripple>
+                    </div>
 
-
-@using (@Html.BeginForm("Dashboard", "Home"))
-{
-
-}
+                </td>
+                <td style="width:33%" class="pad-me">
+                    <div style="position:relative">
+                        <paper-item>
+                            <paper-item-body two-line>
+                                <div style="text-align:center"><h2>Custom Time Period</h2></div>
+                                <div style="height:100px"></div>
+                            </paper-item-body>
+                        </paper-item>
+                        <paper-ripple></paper-ripple>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br />
+</paper-material>

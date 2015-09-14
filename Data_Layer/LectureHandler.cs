@@ -17,7 +17,7 @@ namespace Insight.Data
                 new SqlParameter("@ModuleCode", _lecture.ModuleCode),
                 new SqlParameter("@StaffNumber", _lecture.StaffNumber),
                 new SqlParameter("@VenueCode",_lecture.VenueCode), 
-                new SqlParameter("@TimeOfDay", _lecture.TimeOfDay)
+                new SqlParameter("@TimeSlot", _lecture.TimeSlot)
             };
             return DataAccess.ExecuteNonQuery("sp_InsertLecture", CommandType.StoredProcedure,
                 Params);
@@ -35,7 +35,7 @@ namespace Insight.Data
                 {
                     DataRow row = table.Rows[0];
                     _lecture = new Lecture();
-                    _lecture.TimeOfDay = Convert.ToDateTime(row["TimeOfDay"]);
+                    _lecture.TimeSlot = row["TimeSlot"].ToString();
                     _lecture.ModuleCode = row["ModuleCode"].ToString();
                     _lecture.StaffNumber = row["StaffNumber"].ToString();
                     _lecture.VenueCode = row["VenueCode"].ToString();
@@ -57,7 +57,7 @@ namespace Insight.Data
                     foreach (DataRow row in table.Rows)
                     {
                         Lecture _lecture = new Lecture();
-                        _lecture.TimeOfDay = Convert.ToDateTime(row["TimeOfDay"]);
+                        _lecture.TimeSlot = row["TimeSlot"].ToString();
                         _lecture.ModuleCode = row["ModuleCode"].ToString();
                         _lecture.StaffNumber = row["StaffNumber"].ToString();
                         _lecture.VenueCode = row["VenueCode"].ToString();
@@ -73,7 +73,7 @@ namespace Insight.Data
             SqlParameter[] Params = new SqlParameter[]
             {
                 new SqlParameter("@LUI", _lecture.LUI),
-                new SqlParameter("@TimeOfDay", _lecture.TimeOfDay ),
+                new SqlParameter("@TimeSlot", _lecture.TimeSlot ),
                 new SqlParameter("@ModuleCode", _lecture.ModuleCode),
                 new SqlParameter("@StaffNumber", _lecture.StaffNumber),
                 new SqlParameter("@VenueCode", _lecture.VenueCode)
@@ -82,11 +82,11 @@ namespace Insight.Data
                 Params);
         }
 
-        public List<Lecture> GetRangeOfLectures(DateTime startDate, DateTime endDate)
+        public List<Lecture> GetLectureForStaffMemeber(string StaffNumber)
         {
             List<Lecture> _lectureList = null;
-            SqlParameter[] Params = { new SqlParameter("@startDate", startDate), new SqlParameter("@endDate", endDate) };
-            using (DataTable table = DataAccess.ExecuteParamatizedSelectCommand("", CommandType.StoredProcedure, Params))
+            SqlParameter[] Params = { new SqlParameter("@StaffNumber", StaffNumber) };
+            using (DataTable table = DataAccess.ExecuteParamatizedSelectCommand("sp_GetLectures4Staff", CommandType.StoredProcedure, Params))
             {
                 if (table.Rows.Count > 0)
                 {
@@ -94,7 +94,8 @@ namespace Insight.Data
                     foreach (DataRow row in table.Rows)
                     {
                         Lecture _lecture = new Lecture();
-                        _lecture.TimeOfDay = Convert.ToDateTime(row["TimeOfday"]);
+                        _lecture.LUI = Convert.ToInt32(row["LUI"]);
+                        _lecture.TimeSlot = row["TimeSlot"].ToString();
                         _lecture.ModuleCode = row["ModuleCode"].ToString();
                         _lecture.StaffNumber = row["StaffNumber"].ToString();
                         _lecture.VenueCode = row["VenueCode"].ToString();

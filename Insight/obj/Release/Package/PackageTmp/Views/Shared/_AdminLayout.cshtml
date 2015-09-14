@@ -23,6 +23,9 @@
     <link rel="import" href="~/Components/paper-date-picker-master/paper-date-picker-dialog.html">
     <link rel="import" href="~/Components/paper-time-picker/paper-time-picker.html">
     <link rel="import" href="~/Components/paper-dialog/paper-dialog.html">
+    <link rel="import" href="~/Components/paper-tabs/paper-tabs.html" />
+    <link rel="import" href="~/Components/paper-tabs/paper-tab.html" />
+    <link rel="import" href="~/Components/iron-pages/iron-pages.html" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -71,7 +74,7 @@
                         </ul>
                     </li>
 
-                    <li>@Html.ActionLink("Attendance", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Attendance", "Index", "Attendance")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -88,7 +91,7 @@
         </div>
     </div>
 
-    <div class="body-content">
+    <div class="body-content" style="position:relative">
         @RenderBody()
         <br />
         <div class="row">

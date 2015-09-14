@@ -10,12 +10,12 @@
     
     <br/>
 
-    <paper-material elevation="3" class="container smooth paperMaterial">
+    <paper-material elevation="3" class="wider smooth paperMaterial">
         <div class="row" style="text-align:center">
             <h2>Create New Venue</h2>
             <hr />
         </div>
-        <div class="row container">
+        <div class="row button-pad">
             @if (Model.VenueCode != null)
             {
                 <paper-input label="Venue Code" id="VenueCode" name="VenueCode" value="@Model.VenueCode"></paper-input> @Html.ValidationMessageFor(model => model.VenueCode, "", new { @class = "text-danger" })
@@ -46,7 +46,7 @@
         <br />
         <div class="row">
             <hr />
-            <div class="container">
+            <div class="button-pad">
                 <paper-button raised class="accept-button pull-left" onclick="history.go(-1);">Back</paper-button>
                 <paper-button raised class="accept-button pull-right" onclick="document.createVenue.submit();">Create</paper-button>
             </div>

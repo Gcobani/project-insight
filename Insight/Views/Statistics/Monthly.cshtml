@@ -1,0 +1,62 @@
+﻿@model Insight.Models.MonthlyStats
+@{
+    ViewBag.Title = "Monthly";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<br />
+<paper-material elevation="3" class="wider paperMaterial">
+    <div class="row">
+        <div style="text-align:center"><h1>Monthly Attendance Statistics</h1></div>
+        <hr />
+    </div>
+    <div class="row pad-me">
+        @using (Html.BeginForm("MonthlyQuery", "Statistics", FormMethod.Post, new { }))
+        {
+            <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link rel="import" href="~/Components/paper-date-picker-master/paper-date-picker-dialog.html">
+            <div class="form-horizontal container">
+                <table>
+                    <tr>
+                        <td class="form-inline form-group"><span>Select Module :</span> @Html.DropDownListFor(m => m.Modules, Model.Modules, new { @class = "form-control" })</td>
+                        <td>
+
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
+                <template is="dom-bind" id="scope">
+                    <section>
+                        <h1>{{dateFormat(date, 'LL')}}</h1>
+                        <paper-button class="btn" on-tap="showDialog" raised>Change Date</paper-button>
+                        <paper-dialog id="dialog" class="paper-date-picker-dialog" modal on-iron-overlay-closed="dismissDialog">
+                            <paper-date-picker id="picker" responsive-width="655px"></paper-date-picker>
+                            <div class="buttons">
+                                <paper-button dialog-dismiss>Cancel</paper-button>
+                                <paper-button dialog-confirm>OK</paper-button>
+                            </div>
+                        </paper-dialog>
+                    </section>
+                </template>
+                <script>
+                    document.addEventListener('WebComponentsReady', function () {
+                        var scope = Polymer.dom(document).querySelector('#scope');
+                        scope.dateFormat = scope.$.picker.dateFormat;
+                        scope.dismissDialog = function (event) {
+                            if (event.detail.confirmed) {
+                                scope.date = scope.$.picker.date;
+                            }
+                        };
+                        scope.showDialog = function () {
+                            this.$.dialog.toggle();
+                        };
+                        scope.date = new Date();
+                    });
+
+                </script>
+
+            </div>
+            <div style="height:300px;"></div>
+        }
+    </div>
+</paper-material>

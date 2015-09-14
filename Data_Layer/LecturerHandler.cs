@@ -31,6 +31,27 @@ namespace Insight.Data
             return _lecturer;
         }
 
+        public Lecturer GetLecturer_StaffNumber(string StaffNumber)
+        {
+            Lecturer _lecturer = null;
+
+            SqlParameter[] Params = { new SqlParameter("@StaffNumber", StaffNumber) };
+            using (DataTable table = DataAccess.ExecuteParamatizedSelectCommand("sp_GetLecturer_StaffNumber",
+                CommandType.StoredProcedure, Params))
+            {
+                if (table.Rows.Count == 1)
+                {
+                    DataRow row = table.Rows[0];
+                    _lecturer = new Lecturer();
+                    _lecturer.Name = row["Name"].ToString();
+                    _lecturer.Surname = row["Surname"].ToString();
+                    _lecturer.User_Id = row["User_Id"].ToString();
+                    _lecturer.StaffNumber = row["StaffNumber"].ToString();
+                }
+            }
+            return _lecturer;
+        }
+
         public List<Lecturer> GetAllLecturers()
         {
             List<Lecturer> _staffList = null;

@@ -2,3 +2,4 @@ C:\Users\Gcobani\Source\Repos\project-insight\Data_Layer\bin\Release\Data_Layer.
 C:\Users\Gcobani\Source\Repos\project-insight\Data_Layer\bin\Release\Data_Layer.pdb
 C:\Users\Gcobani\Source\Repos\project-insight\Data_Layer\obj\Release\Data_Layer.dll
 C:\Users\Gcobani\Source\Repos\project-insight\Data_Layer\obj\Release\Data_Layer.pdb
+C:\Users\Gcobani\Source\Repos\project-insight\Data_Layer\obj\Release\Data_Layer.csprojResolveAssemblyReference.cache

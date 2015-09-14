@@ -1,0 +1,32 @@
+﻿<template is="dom-bind" id="endscope">
+    <section>
+        <paper-button class="btn" on-tap="showDialog" raised>End Time</paper-button>
+        <paper-dialog id="dialog" class="paper-time-picker-dialog" modal>
+            <paper-time-picker id="endpicker" time=""></paper-time-picker>
+            <div class="buttons">
+                <paper-button dialog-dismiss>CANCEL</paper-button>
+                <paper-button dialog-confirm on-tap="timeSelected">OK</paper-button>
+            </div>
+        </paper-dialog>
+
+        <label style="font-size:22px" id="timeEndHold" name="timeEndHold">{{hc}}</label>
+        <input type="hidden" name="timeEndHoldhidden" id="timeEndHoldhidden" />
+    </section>
+</template>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var scope = document.querySelector('#endscope');
+        var xyz = scope.$.picker.time;
+        scope.timeSelected = function () {
+            scope.time = scope.$.picker.time;
+            xyz = scope.$.picker.time;
+            document.getElementById('timeEndHold').innerHTML = xyz;
+            document.getElementById('timeEndHoldhidden').value = xyz;
+        };
+        scope.showDialog = function () {
+            this.$.dialog.toggle();
+        };
+        document.getElementById('timeEndHold').innerHTML = hc;
+    });
+</script> 

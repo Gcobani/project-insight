@@ -1,0 +1,67 @@
+﻿@model Insight.Models.CloserViewModel
+@{
+    ViewBag.Title = "ViewAttendees";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br /><br />
+<paper-material elevation="3" class="wider paperMaterial">
+    <div class="row">
+        <template is="dom-bind" class="wider">
+            <paper-tabs selected="{{selected}}">
+                <paper-tab>Attendance Register</paper-tab>
+                <paper-tab>Attendance Images</paper-tab>
+                <paper-tab>Attendance Summary</paper-tab>
+            </paper-tabs>
+            <br />
+            <iron-pages selected="{{selected}}">
+                <div>
+                    <div style="text-align:center"><h1>Attendance Register</h1></div>
+                    <hr />
+                    <div class="row pad-me">
+
+                        <div class="col-md-4">
+                            <h3>Lecturer : @Model.Lecturer.Name &nbsp; @Model.Lecturer.Surname</h3>
+                            <h3>Module : @Model.Lecture.ModuleCode</h3>
+                            <h3>Venue : @Model.Lecture.VenueCode</h3>
+                            <h3>Date: @Model.Date</h3>
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+
+                        </div>
+                    </div>
+                    <br />
+                    <table class="table button-pad">
+                        <tr>
+                            <th><h5>Student Number</h5></th>
+                            <th><h5>Name</h5></th>
+                            <th><h5>Surname</h5></th>
+                        </tr>
+                        @{
+                            if (Model != null)
+                            {
+                                foreach (var item in Model.Students)
+                                {
+                            <tr>
+                                <td>@item.StudentNumber</td>
+                                <td>@item.Surname</td>
+                                <td>@item.Name</td>
+                            </tr>
+                                }
+                            }
+                        }
+                    </table>
+                </div>
+                <div>
+                    <div style="text-align:center"><h1>Submitted Image(s)</h1></div>
+                    <hr />
+                </div>
+                <div>
+                    <div style="text-align:center;"><h1>Summary for @Model.Lecture.ModuleCode</h1></div> 
+                    <hr />
+                </div>
+            </iron-pages>
+        </template>
+    </div>
+</paper-material>
+

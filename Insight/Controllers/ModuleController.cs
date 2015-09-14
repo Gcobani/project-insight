@@ -118,6 +118,7 @@ namespace Insight.Controllers
             }
             catch (Exception ex)
             {
+                ModelState.AddModelError("" + ex.Source, ex);
 
                 #region Load Dropdown
 

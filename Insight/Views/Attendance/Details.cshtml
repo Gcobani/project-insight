@@ -1,0 +1,11 @@
+﻿@model Insight.Models.AttendanceViewModel
+
+@if (Model.Lecture != null)
+{
+    <label>Module :</label> <span>@Model.Lecture.ModuleCode</span> 
+    <label>Venue :</label> <span>@Model.Lecture.VenueCode</span>
+    <label>Time Slot :</label> <span>@Model.Lecture.TimeSlot</span>
+    <label>Lecturer :</label> <span>@Model.Lecture.StaffNumber</span>
+}
+else
+{ }

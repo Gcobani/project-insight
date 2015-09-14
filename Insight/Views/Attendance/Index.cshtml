@@ -3,30 +3,119 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<br/>
 <br />
-<paper-material elevation="2" class="container paperMaterial">
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link rel="import" href="~/Components/paper-date-picker-master/paper-date-picker-dialog.html">
+<br />
+<paper-material elevation="2" class="wider paperMaterial">
+    @using (Html.BeginForm("TakeAttendance", "Attendance", FormMethod.Post, new { @name = "frmAtt", enctype = "multipart/form-data" }))
+    {
     <div class="row">
-        <template is="dom-bind">
-            <paper-tabs  selected="{{selected}}">
-                <paper-tab>Take Attendance</paper-tab>
-                <paper-tab>Schedule Attendance Taking</paper-tab>
-            </paper-tabs>
-            <br />
-            <iron-pages selected="{{selected}}">
-                <div>
-                    <div class="container" style="text-align:center"><h2>Take Attendance</h2></div>
-                    <hr />
-                    @{
-                        Html.RenderPartial("TakeAttendance", Model);
-                    }
-                </div>
-                <div>
-                    @{
-                        
-                    }
-                </div>
-            </iron-pages>
-        </template>
+
+        <br />
+        <div>
+            <div class="wider" style="text-align:center"><h2>Take Attendance</h2></div>
+            <hr />
+
+        </div>
     </div>
+    <div class="row">
+        <div class="col-md-6">
+            <br />
+            <div class="row">
+                <div class="form-inline pad-me">
+                    <label>Select Lecture :</label> @Html.DropDownList("Lecture", Model.Lectures, new { @class = "form-control new" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <template is="dom-bind" id="dateScope" class="pad-me">
+                    <section>
+                        <paper-button class="btn" on-tap="showDialog" raised>Change Date</paper-button>
+                        <paper-dialog id="dialog" class="paper-date-picker-dialog" modal on-iron-overlay-closed="dismissDialog">
+                            <paper-date-picker id="picker" responsive-width="655px"></paper-date-picker>
+                            <div class="buttons">
+                                <paper-button dialog-dismiss>Cancel</paper-button>
+                                <paper-button dialog-confirm>OK</paper-button>
+                            </div>
+                        </paper-dialog>
+                        <label style="font-size:22px" id="dateHold" name="dateHold">{{dateFormat(date, 'LL')}}</label>
+                        <input type="hidden" name="dateHoldhidden" id="dateHoldhidden" />
+                    </section>
+                </template>
+            </div>
+            <br />
+            <div class="row pad-me">
+
+                <label>Please select picture : </label><input type="file" name="img" id="img" />
+            </div>
+            <div class="row pad-me">
+
+                <label>Please select zipfolder : </label><input type="file" name="zip" id="zip" />
+            </div>
+        </div>
+        <div class="col-md-6 olden">
+            <br />
+            <div id="sp_container" class="wider">
+
+            </div>
+        </div>
+    </div>
+    <br />
+
+    <div class=" row ">
+        <hr />
+        <div class="button-pad">
+            <paper-button raised class="accept-button pull-right" onclick="document.frmAtt.submit();">Submit</paper-button>
+            <paper-button raised class="accept-button pull-left" onclick="history.go(-1);">Back</paper-button>
+            <br />
+        </div>
+    </div>
+    <br />
+
+
+
+    <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var scope = Polymer.dom(document).querySelector('#dateScope');
+                scope.dateFormat = scope.$.picker.dateFormat;
+                scope.dismissDialog = function (event) {
+                    if (event.detail.confirmed) {
+                        scope.date = scope.$.picker.date;
+                        dataDate = scope.$.picker.date;
+                        document.getElementById('dateHoldhidden').value = dataDate
+                    }
+                };
+                scope.showDialog = function () {
+                    this.$.dialog.toggle();
+                };
+                scope.date = new Date();
+            });
+
+    </script>
+
+
+    <script type="text/javascript">
+            $(".new").change(function () {
+                var selectedValue = $(this).val();
+                if (selectedValue != "0") {
+                    $.ajax({
+                        url: '@Url.Action("Details", "Attendance")',
+                        type: 'post',
+                        data: { 'selectedValue': selectedValue },
+                        datatype: 'json',
+                        success: function (response) {
+                            $('#inner').remove();
+                            $("#sp_container").append('<div id="inner" style="font-size:21px;"><label>Module :</label><span>' + response[0] + '</span><br/><label>Venue :</label><span>' + response[1] + '</span><br/><label>Time Slot :</label><span>' + response[2] + '</span></div>');
+                        }
+                    })
+                }
+                else {
+                    alert("Server returned no data!");
+                }
+            });
+    </script>
+
+    }
+
 </paper-material>

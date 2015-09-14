@@ -27,8 +27,8 @@ namespace Insight.Data
         {
             Student _student = null;
 
-            SqlParameter[] Params = { new SqlParameter("@Id", Id) };
-            using (DataTable table = DataAccess.ExecuteParamatizedSelectCommand("",
+            SqlParameter[] Params = { new SqlParameter("@User_Id", Id) };
+            using (DataTable table = DataAccess.ExecuteParamatizedSelectCommand("sp_GetStudents",
                 CommandType.StoredProcedure, Params))
             {
                 if (table.Rows.Count == 1)
@@ -38,7 +38,6 @@ namespace Insight.Data
                     _student.StudentNumber = row["StudentNumber"].ToString();
                     _student.Name = row["Name"].ToString();
                     _student.Surname = row["Surname"].ToString();
-                    _student.QualificationCode = Convert.ToInt32(row["QualificationCode"]);
                 }
             }
             return _student;

@@ -27,6 +27,9 @@ namespace Insight.BLogic
         public bool InsertLecturer(Lecturer _lecturer)
         { LecturerHandler myHandler = new LecturerHandler(); return myHandler.NewLecturer(_lecturer); }
 
+        public Student GetStudent(string User_Id)
+        { StudentHandler myHandler = new StudentHandler(); return myHandler.GetStudent(User_Id); }
+
         public bool InsertAttendanceRegister(AttendanceRegister _register)
         { AttendanceRegisterHandler myHandler = new AttendanceRegisterHandler(); return myHandler.NewAttendanceRegister(_register); }
 
@@ -35,6 +38,12 @@ namespace Insight.BLogic
 
         public Lecturer GetLecturer(string User_Id)
         { LecturerHandler myHandler = new LecturerHandler(); return myHandler.GetLecturer(User_Id); }
+
+        public Lecturer GetLecturer_StuffNumber(string StaffNumber)
+        { LecturerHandler myHandler = new LecturerHandler(); return myHandler.GetLecturer_StaffNumber(StaffNumber); }
+
+        public Lecture GetLecture(int LUI)
+        { LectureHandler myHandler = new LectureHandler(); return myHandler.GetLecture(LUI); }
 
         public Venue GetVenue(string _venueCode)
         { VenueHandler myHandler = new VenueHandler(); return myHandler.GetVenue(_venueCode); }
@@ -48,6 +57,10 @@ namespace Insight.BLogic
         { LecturerHandler myHandler = new LecturerHandler(); return myHandler.GetAllLecturers(); }
         public List<Module> GetModulesForLecturer(string StaffNumber)
         { ModuleHandler myHandler = new ModuleHandler(); return myHandler.GetAllModulesForLecturer(StaffNumber); }
+        public List<Lecture> GetLecturesForStaff(string staffNumber)
+        { LectureHandler myHandler = new LectureHandler(); return myHandler.GetLectureForStaffMemeber(staffNumber); }
+        public List<Module> GetAllModules()
+        { ModuleHandler myHandler = new ModuleHandler(); return myHandler.GetAllModules(); }
         #endregion
 
         #region User Actions

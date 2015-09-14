@@ -1,27 +1,104 @@
 ﻿@model Insight.Models.AttendanceViewModel
-
-@using (Html.BeginForm("TakeAttendance", "Attendance", FormMethod.Post, new { @name="frmAtt"}))
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link rel="import" href="~/Components/paper-date-picker-master/paper-date-picker-dialog.html">
+@using (Html.BeginForm("TakeAttendance", "Attendance", FormMethod.Post, new { @name = "frmAtt", enctype = "multipart/form-data" }))
 {
     <div class="row">
-        <div class="container">
-            <label>Select Module :</label> @Html.DropDownList("Modules", Model.Modules, new { @class="form-control"})
-        </div>
-    </div>
-    <div class="row">
-        <div class="container">
-            <br /><br />
-            <label></label>Please select picture : <input type="file" />
+        <div class="wider">
+            <div class="col-md-6">
+                <br />
+                <div class="row">
+                    <div class="wider form-inline">
+                        <label>Select Lecture :</label> @Html.DropDownList("Lecture", Model.Lectures, new { @class = "form-control new" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="container">
+                        <template is="dom-bind" id="dateScope">
+                            <section>
+
+                                <paper-button class="btn" on-tap="showDialog" raised>Change Date</paper-button>
+                                <paper-dialog id="dialog" class="paper-date-picker-dialog" modal on-iron-overlay-closed="dismissDialog">
+                                    <paper-date-picker id="picker" responsive-width="655px"></paper-date-picker>
+                                    <div class="buttons">
+                                        <paper-button dialog-dismiss>Cancel</paper-button>
+                                        <paper-button dialog-confirm>OK</paper-button>
+                                    </div>
+                                </paper-dialog>
+                                <label style="font-size:22px" id="dateHold" name="dateHold">{{dateFormat(date, 'LL')}}</label>
+                                <input type="hidden" name="dateHoldhidden" id="dateHoldhidden" />
+                            </section>
+                        </template>
+                    </div> 
+                </div>
+                <br />
+                <div class="row">
+                    <div class="wider">
+                        <br /><br />
+                        <label></label>Please select picture : <input type="file" name="img" id="img" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 olden" >
+                <div id="sp_container" class="wider">
+
+                </div>
+            </div>
         </div>
     </div>
     <br />
-    <div class="row">
-        <div class="container">
+        <div class=" wider">
             <hr />
-            <paper-button raised class="accept-button pull-right" onclick="document.frmAtt.submit();">Submit</paper-button>
-            <paper-button raised class="accept-button pull-left" onclick="history.go(-1);">Back</paper-button>
+            <paper-button raised class="accept-button " onclick="document.frmAtt.submit();">Submit</paper-button>
+            <paper-button raised class="accept-button " onclick="history.go(-1);">Back</paper-button>
+            <br />
         </div>
         <br />
-    </div>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        var scope = Polymer.dom(document).querySelector('#dateScope');
+        scope.dateFormat = scope.$.picker.dateFormat;
+        scope.dismissDialog = function (event) {
+            if (event.detail.confirmed) {
+                scope.date = scope.$.picker.date;
+                dataDate = scope.$.picker.date;
+                document.getElementById('dateHoldhidden').value = dataDate
+            }
+        };
+        scope.showDialog = function () {
+            this.$.dialog.toggle();
+        };
+        scope.date = new Date();
+    });
+
+    </script>
+
+
+    <script type="text/javascript">
+    $(".new").change(function () {
+        var selectedValue = $(this).val();
+        if (selectedValue != "0") {
+            $.ajax({
+                url: '@Url.Action("Details", "Attendance")',
+                type: 'post',
+                data: { 'selectedValue': selectedValue },
+                datatype: 'json',
+                success: function (response) {
+                    $('#inner').remove();
+                    $("#sp_container").append('<div id="inner"><label>Module :</label><span>' + response[0] + '</span><br/><label>Venue :</label><span>' + response[1] + '</span><br/><label>Time Slot :</label><span>' + response[2] + '</span></div>');
+                }
+            })
+        }
+        else {
+            $(".olden").val(" ");
+        }
+    });
+    </script>
+
 }
 
 
