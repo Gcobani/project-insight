@@ -1,14 +1,20 @@
 ﻿body {
     font-family: Roboto, Raleway;
-    font-weight:300;
+    font-weight: 300;
     padding-top: 50px;
     padding-bottom: 20px;
-    background:url(../Img/bground.jpg)
+    background: url(../Img/bground.jpg);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+html {
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    
     padding-left: 15px;
     padding-right: 15px;
 }
@@ -45,7 +51,7 @@ textarea {
 
 h2, h1, h3, h4, label {
     font-family: Raleway, sans-serif;
-    font-weight:300;
+    font-weight: 300;
 }
 
 .smoother {
@@ -62,24 +68,29 @@ paper-tabs, paper-toolbar {
     color: #fff;
     box-shadow: none;
 }
-.paperMaterial{
-    background-color:white;
+
+.paperMaterial {
+    background-color: white;
 }
-.wider{
-    width:85%;
+
+.wider {
+    width: 85%;
     padding-right: 15px;
     padding-left: 15px;
-    margin-left:auto;
-    margin-right:auto;
+    margin-left: auto;
+    margin-right: auto;
 }
-.pad-me{
-    padding-left:15px
+
+.pad-me {
+    padding-left: 15px;
 }
-.button-pad{
+
+.button-pad {
     padding-right: 15px;
     padding-left: 15px;
 }
-paper-ripple{
-    z-index:10;
+
+paper-ripple {
+    z-index: 10;
     color: #4285f4;
 }

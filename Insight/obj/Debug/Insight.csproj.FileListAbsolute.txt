@@ -116,3 +116,10 @@ C:\Users\Gcobani\Source\Repos\project-insight\Insight\bin\Data_Layer.dll
 C:\Users\Gcobani\Source\Repos\project-insight\Insight\bin\Business_Logic_Layer.pdb
 C:\Users\Gcobani\Source\Repos\project-insight\Insight\bin\Data_Layer.pdb
 C:\Users\Gcobani\Source\Repos\project-insight\Insight\obj\Debug\Insight.Migrations._1stOfMany.resources
+C:\Users\Gcobani\Source\Repos\project-insight\Insight\bin\Ionic.Zip.dll
+C:\Users\Gcobani\Source\Repos\project-insight\Insight\bin\Ionic.Zip.pdb
+C:\Users\Gcobani\Source\Repos\project-insight\Insight\bin\Ionic.Zip.xml
+C:\Users\Gcobani\Source\Repos\project-insight\Insight\bin\Hangfire.Core.dll
+C:\Users\Gcobani\Source\Repos\project-insight\Insight\bin\Hangfire.SqlServer.dll
+C:\Users\Gcobani\Source\Repos\project-insight\Insight\bin\Hangfire.Core.xml
+C:\Users\Gcobani\Source\Repos\project-insight\Insight\bin\Hangfire.SqlServer.xml

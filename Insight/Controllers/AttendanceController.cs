@@ -14,8 +14,10 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Threading.Tasks;
 using Emgu.CV;
 using System.IO;
+using Ionic.Zip;
 using System.Drawing;
 using Emgu.CV.Face;
+using Hangfire;
 
 namespace Insight.Controllers
 {
@@ -138,31 +140,48 @@ namespace Insight.Controllers
         [HttpPost]
         public ActionResult Schedule(HttpPostedFileBase zip, HttpPostedFileBase img, FormCollection collector)
         {
-            return View();
-        }
-        public ActionResult Details(string selectedValue)
-        {
-            AttendanceViewModel _model = new AttendanceViewModel();
-            BusinessLogicHandler _gateWay = new BusinessLogicHandler();
-            _model.Lecture = new Lecture();
-            _model.Lecture = _gateWay.GetLecture(int.Parse(selectedValue));
-            object[] response = {_model.Lecture.ModuleCode, _model.Lecture.VenueCode, _model.Lecture.TimeSlot };
-            return Json(response);
-        }
-        public ActionResult TakeAttendance(HttpPostedFileBase zip, HttpPostedFileBase img, FormCollection collector)
-        {
             #region Declaring Varibles
 
             string path = Server.MapPath("~/Uploads/");
             string haarcascades = HttpContext.Server.MapPath("~/haarcascades/haarcascade_frontalface_default.xml");
-            List<string> User_Id = new List<string>();
+            string theePath = "";
+            List<string> User_Id;
+            string[] dateSlice = collector.GetValue("dateHoldhidden").AttemptedValue.Split(' ');
+            string[] timeSlice = collector.GetValue("timeHoldhidden").AttemptedValue.Split(' ');
+            string rawDate = dateSlice[3] + "-" + dateSlice[1] + "-" + dateSlice[2] + " "+timeSlice[0]+" "+timeSlice[1];
+            DateTime date = new DateTime();
+            date = DateTime.Parse(rawDate);
+            DateTimeOffset ofset = new DateTimeOffset(date, new TimeSpan(+1, 0, 0));
+            //date = DateTime.ParseExact(rawDate, "yyyy-MMM-dd HH:mm tt", null);
+            #endregion
+
+            #region Checking or Creating the directory
+
+            string newPath = Server.MapPath("~/Uploads/Attendance/");
+            if (Directory.Exists(newPath))
+            {
+                theePath = newPath + collector.GetValue("Lecture").AttemptedValue + DateTime.Today.ToString("ddMMMMyyyy");
+                if (!Directory.Exists(theePath))
+                    Directory.CreateDirectory(theePath);
+            }
+            else
+            { Directory.CreateDirectory(newPath); }
 
             #endregion
 
             if (img != null && zip == null)
             {
+                User_Id = new List<string>();
+                Bitmap _Img = new Bitmap(img.InputStream);
+
+                #region processing the img
+
                 CoreSysFunction _coreFunction = new CoreSysFunction();
-                User_Id.AddRange(_coreFunction.DetectAndRecognize(img, path, haarcascades));
+
+                BackgroundJob.Schedule(() => User_Id.AddRange(_coreFunction.DetectAndRecognize(_Img, path, haarcascades)), ofset);
+
+                RecurringJob.AddOrUpdate(() => projectX(path), Cron.Weekly(DayOfWeek.Monday, 21, 08));
+                #endregion
 
                 #region object to view page
 
@@ -179,6 +198,167 @@ namespace Insight.Controllers
             }
             else if (zip != null && img != null)
             {
+                User_Id = new List<string>();
+                Bitmap _Img = new Bitmap(img.InputStream);
+
+                #region processing the img
+
+                CoreSysFunction _coreFunction = new CoreSysFunction();
+                User_Id.AddRange(_coreFunction.DetectAndRecognize(_Img, path, haarcascades));
+
+                #endregion
+
+                #region Processing zip
+                Stream zipStream = zip.InputStream;
+                using (var _img = ZipFile.Read(zipStream))
+                {
+                    foreach (var file in _img.Entries)
+                    {
+                        file.Extract(theePath, ExtractExistingFileAction.OverwriteSilently);
+                        Image bmp = Image.FromFile(theePath + "/" + file.FileName);
+                        Bitmap mbmp = new Bitmap(bmp);
+                        User_Id.AddRange(_coreFunction.DetectAndRecognize(mbmp, path, haarcascades));
+                    }
+                }
+                #endregion
+
+                #region object to view
+
+                Bridge _bridge = new Bridge();
+                _bridge.User_Id = new List<string>();
+                _bridge.User_Id = User_Id.Distinct();
+                _bridge.dateSlice = collector.GetValue("dateHoldhidden").AttemptedValue.Split(' ');
+                _bridge.Lecture_Id = Convert.ToInt32(collector.GetValue("Lecture").AttemptedValue);
+                Session["Data"] = _bridge;
+
+                #endregion
+
+                return RedirectToActionPermanent("ViewAttendees");
+            }
+            else if (zip != null)
+            {
+                return RedirectToActionPermanent("ViewAttendees");
+            }
+            else
+            { return RedirectToActionPermanent("Index"); }
+        }
+        public ActionResult Details(string selectedValue)
+        {
+            AttendanceViewModel _model = new AttendanceViewModel();
+            BusinessLogicHandler _gateWay = new BusinessLogicHandler();
+            _model.Lecture = new Lecture();
+            _model.Lecture = _gateWay.GetLecture(int.Parse(selectedValue));
+            object[] response = {_model.Lecture.ModuleCode, _model.Lecture.VenueCode, _model.Lecture.TimeSlot };
+            return Json(response);
+        }
+        public ActionResult TakeAttendance(HttpPostedFileBase zip, HttpPostedFileBase img, FormCollection collector)
+        {
+            #region Declaring Varibles
+
+            string path = Server.MapPath("~/Uploads/");
+            string haarcascades = HttpContext.Server.MapPath("~/haarcascades/haarcascade_frontalface_default.xml");
+            string theePath = "";
+            BusinessLogicHandler _gateWay;
+            Lecture _mod;
+            List<string> User_Id;
+
+            #endregion
+
+            #region getting the modulecode
+
+            _gateWay = new BusinessLogicHandler();
+            _mod = new Lecture();
+            _mod = _gateWay.GetLecture(Convert.ToInt32(collector.GetValue("Lecture").AttemptedValue));
+
+            #endregion
+
+            #region Checking or Creating the directory
+
+            string newPath = Server.MapPath("~/Uploads/Attendance/");
+            if (Directory.Exists(newPath))
+            {
+                if(Directory.Exists(newPath+_mod.ModuleCode))
+                {
+                    theePath = newPath + _mod.ModuleCode.Trim() + "/" + _mod.VenueCode.Trim() + "/" + DateTime.Today.ToString("ddMMMMyyyy");
+                    if (!Directory.Exists(theePath))
+                        Directory.CreateDirectory(theePath);
+                }
+                else
+                {
+                    Directory.CreateDirectory(newPath + _mod.ModuleCode);
+                    theePath = newPath + _mod.ModuleCode.Trim() + "/" + _mod.VenueCode.Trim() + "/" + DateTime.Today.ToString("ddMMMMyyyy");
+                    if (!Directory.Exists(theePath))
+                        Directory.CreateDirectory(theePath);
+                }
+            }
+            else
+            { Directory.CreateDirectory(newPath); }
+
+            #endregion
+
+            if (img != null && zip == null)
+            {
+                User_Id = new List<string>();
+                Bitmap _Img = new Bitmap(img.InputStream);
+
+                #region processing the img
+
+                CoreSysFunction _coreFunction = new CoreSysFunction();
+                User_Id.AddRange(_coreFunction.DetectAndRecognize(_Img, path, haarcascades));
+                _coreFunction.IdentifyAndMark(haarcascades, Server.MapPath("~/Uploads/Attendance/" + _mod.ModuleCode.Trim() + "/" + _mod.VenueCode.Trim() + "/" + DateTime.Today.ToString("ddMMMMyyyy")+"/"), _mod.TimeSlot.TrimEnd(), _Img);
+                #endregion
+
+                #region object to view page
+
+                Bridge _bridge = new Bridge();
+                _bridge.User_Id = new List<string>();
+                _bridge.User_Id = User_Id;
+                _bridge.dateSlice = collector.GetValue("dateHoldhidden").AttemptedValue.Split(' ');
+                _bridge.Lecture_Id = Convert.ToInt32(collector.GetValue("Lecture").AttemptedValue);
+                Session["Data"] = _bridge;
+
+                #endregion
+
+                return RedirectToActionPermanent("ViewAttendees");
+            }
+            else if (zip != null && img != null)
+            {
+                User_Id = new List<string>();
+                Bitmap _Img = new Bitmap(img.InputStream);
+
+                #region processing the img
+
+                CoreSysFunction _coreFunction = new CoreSysFunction();
+                User_Id.AddRange(_coreFunction.DetectAndRecognize(_Img, path, haarcascades));
+
+                #endregion
+
+                #region Processing zip
+                Stream zipStream = zip.InputStream;
+                using (var _img = ZipFile.Read(zipStream))
+                {
+                    foreach(var file in _img.Entries)
+                    {
+                        file.Extract(theePath, ExtractExistingFileAction.OverwriteSilently);
+                        Image bmp = Image.FromFile(theePath+"/"+file.FileName);
+                        Bitmap mbmp = new Bitmap(bmp);
+                        User_Id.AddRange(_coreFunction.DetectAndRecognize(mbmp, path, haarcascades));
+                        _coreFunction.IdentifyAndMark(haarcascades, Server.MapPath(theePath), _mod.VenueCode, mbmp);
+                    }
+                }
+                #endregion
+
+                #region object to view
+
+                Bridge _bridge = new Bridge();
+                _bridge.User_Id = new List<string>();
+                _bridge.User_Id = User_Id.Distinct();
+                _bridge.dateSlice = collector.GetValue("dateHoldhidden").AttemptedValue.Split(' ');
+                _bridge.Lecture_Id = Convert.ToInt32(collector.GetValue("Lecture").AttemptedValue);
+                Session["Data"] = _bridge;
+
+                #endregion
+
                 return RedirectToActionPermanent("ViewAttendees");
             }
             else if(zip != null)
@@ -242,6 +422,22 @@ namespace Insight.Controllers
             #endregion
 
             return View(_closer);
+        }
+        public void projectX(string path)
+        {
+            BackgroundJobClient client = new BackgroundJobClient();
+            RecurringJob.AddOrUpdate(() => zues(path), Cron.Minutely);
+            BackgroundJobServer serv = new BackgroundJobServer();
+        }
+        public void zues(string path)
+        {
+            BackgroundJobClient client = new BackgroundJobClient();
+            DateTime tme = new DateTime(2015, 09, 15, 21, 10, 00);
+            while(DateTime.Now > tme)
+            {
+                Directory.CreateDirectory(path + DateTime.Now.TimeOfDay.Minutes.ToString());
+            }
+            return;
         }
     }
 }

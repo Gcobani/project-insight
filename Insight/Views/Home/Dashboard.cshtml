@@ -5,13 +5,44 @@
 }
 <br />
 <br />
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1.1", { packages: ["bar"] });
+    google.setOnLoadCallback(drawStuff);
+
+    function drawStuff() {
+        var data = new google.visualization.arrayToDataTable([
+          ['Move', 'Students Attended'],
+          ["2012", 60],
+          ["2013", 51],
+          ["2014", 48],
+          ["2015", 65]
+        ]);
+
+        var options = {
+            title: 'Module Attendance',
+            width: 1500,
+            legend: { position: 'none' },
+            chart: { subtitle: 'Number of Students Over Years' },
+            axes: {
+                x: {
+                    0: { side: 'top', label: 'Years' }
+                }
+            },
+            bar: { groupWidth: "90%" }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_values'));
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+    };
+</script>
 <paper-material elevation="3" class="paperMaterial wider">
     <div class="row">
         <div style="text-align:center"><h1>Attendance Statistics</h1></div>
         <hr />
     </div>
     <div class="row">
-        <div style="height:500px;"></div>
+        <div style="height:500px; width:inherit;" id="columnchart_values" class="button-pad"></div>
     </div>
 </paper-material>
 <div class="row">
@@ -34,7 +65,7 @@
                         </paper-item>
                         <paper-ripple></paper-ripple>
                     </div>
-                    
+
                 </td>
                 <td class="pad-me" style="border-right:1px solid ButtonShadow !important; width:33%">
                     <div style="position:relative" onclick="location.href='@Url.Action("Monthly", "Statistics")'">
@@ -64,3 +95,46 @@
     </div>
     <br />
 </paper-material>
+
+<br />
+
+<paper-material elevation="3" class="wider paperMaterial">
+    <div class="row button-pad">
+        <p>Initially there was one ultimate goal in the development of the proof of concept image processing for class attendance web application and that was ‘being able to implement image processing Application Programming Interfaces (API) namely facial recognition API’s’ but as we progress through the designing of the system some other goals have arisen. During the design a goal to make a user interface that would not getting in the way of the user accomplishing what they set out to accomplish, a user interface that is warm and unintimidating. Another goal that arisen was to develop a system that would be as easy as the existing paper based method. And because the existing method of taking attendance is simple and cheap our third goal was to make the proof of concept image processing for class attendance as low cost as possible.</p>
+        <p>A number of problems have been encountered in the development of the proof of concept image processing for class attendance however this section will only cover three. The first problem was with EmguCV 2.2.1 which made use of Nvidia Cuda Graphics Processing Units (GPU), this meant that the system would not operate on a system without an Nvidia graphics card and this was a problem because it would put us a step back towards our low cost goal if the users have to purchase graphics cards to be able to use the system. The second problem that persisted in the proof of concept image recognition for class attendance is binding the Asp.net C# based model to the Google polymer paper elements, having to force the view to preserve model state on model error while using the paper elements. Attendance scheduling is the third problem that is still persisting, having the server capture images at a certain time and perform facial recognition on them.</p>
+        <p>Chapter
+Deployment document
+This chapter serves to explore the progress of the development of the proof of concept image recognition for class attendance. A number of things will be addressed in this chapter starting with project goals which will dive deep into the goals of developing the proof of concept image recognition for class attendance web application. After the goals then follows the achievements which will highlight achievements that were made in the development of the system. Following the achievements will be the problems encountered in the development process, after that a list of tools that were used in developing the proof of concept image recognition for class attendance and lastly we will conclude the chapter.
+
+1.	Project goals
+Initially there was one ultimate goal in the development of the proof of concept image processing for class attendance web application and that was ‘being able to implement image processing Application Programming Interfaces (API) namely facial recognition API’s’ but as we progress through the designing of the system some other goals have arisen. During the design a goal to make a user interface that would not getting in the way of the user accomplishing what they set out to accomplish, a user interface that is warm and unintimidating. Another goal that arisen was to develop a system that would be as easy as the existing paper based method. And because the existing method of taking attendance is simple and cheap our third goal was to make the proof of concept image processing for class attendance as low cost as possible.
+
+2.	Achievements
+A lot of achievements have been made to this point in the development of the proof of concept image processing for class attendance web application. It can be said that both of the goals mentioned above have been accomplished because the system uses EmguCV 3.0.0.2157 which is a .Net wrapper for OpenCV 3.0 API and because OpenCV and EmguCV are open sourced this means we are a step closer in our ‘low cost’ goal. As for the user interface the web application uses Google polymer paper elements which have been designed with seamless user experience in mind. Another achievement is the use of polymer paper elements together with Twitter Bootstrap
+
+3.	Problems encountered
+A number of problems have been encountered in the development of the proof of concept image processing for class attendance however this section will only cover three. The first problem was with EmguCV 2.2.1 which made use of Nvidia Cuda Graphics Processing Units (GPU), this meant that the system would not operate on a system without an Nvidia graphics card and this was a problem because it would put us a step back towards our low cost goal if the users have to purchase graphics cards to be able to use the system. The second problem that persisted in the proof of concept image recognition for class attendance is binding the Asp.net C# based model to the Google polymer paper elements, having to force the view to preserve model state on model error while using the paper elements. Attendance scheduling is the third problem that is still persisting, having the server capture images at a certain time and perform facial recognition on them.
+4.	Development tools, frameworks and components used
+The proof of concept was developed in Microsoft Windows 8.1 version 6.3 (Build 9600) operating system utilizing the below tools, API’s, frame work and components.
+4.1.	Microsoft Visual Studio 2013® version 12.0.30501.00
+Visual Studio was the Integrated Development Environment which was used in the development of the proof of concept image processing for class attendance web application.  Visual studio was chosen because of its powerful C# debugging abilities.
+Installation Guide: https://goo.gl/cBlGHI
+4.2.	Microsoft Visual Studio® Update 2
+Visual Studio update 2 was used because it of the fixes it offered, fixes for Asp.net MVC 5.1, Microsoft Identity framework.
+Installation Guide: https://goo.gl/ggRv1G
+4.3.	Microsoft Identity Framework version 2.0.0
+Identity Framework was used because of its integrated user management and creation. The framework makes it easy to register and manage user details, it offers security by means of password hashing algorithms and a 128bit GUID all with the ability to use facebook, google+ or organizational account to sign in.
+Installation Guide: https://goo.gl/Aa340d
+4.4.	Google Polymer version 1.0
+Polymer was used because of its professional looking elements that preset a user interface that is simple but sophisticated, an interface that does not get in the way of the user achieving their goal with the system, also because it presents a graceful interface
+Installation Guide: https://goo.gl/i6FCXx
+4.5.	EmguCV version 3.0.0.2157
+EmguCV was used because it exposes most of the C++ written OpenCV API methods which allows us to use the OpenCV API with C#. Another reason for choosing EmguCV is because it is open source which means there is a lot of community support and the fact that it is free.
+Installation Guide: http://goo.gl/KWvVjF
+
+Conclusion
+With the above mentioned points and taking into account previous chapters, the proof of concept image recognition for class attendance’s goal was to offer a faster and less disruptive way to take attendance in both small and larger settings. That being said the system can be used in conferences, schools and higher education institution, also depending on the company this system can be used as an employee clocking system, after all clocking can be seen as a form of attendance.
+</p>
+    </div>
+</paper-material>
+
