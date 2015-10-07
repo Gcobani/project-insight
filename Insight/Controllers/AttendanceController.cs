@@ -23,6 +23,7 @@ namespace Insight.Controllers
 {
     public class AttendanceController : Controller
     {
+        string c;
         public async Task<ActionResult> Index()
         {
             #region Get Identity
@@ -66,7 +67,7 @@ namespace Insight.Controllers
             List<SelectListItem> _yetAL = new List<SelectListItem>();
             _lectureList = _gateWay.GetLecturesForStaff(_staff.StaffNumber);
             _yetAL.Add(new SelectListItem { Text = "Select Lecture", Value = "0", Selected = true });
-            foreach(var _item in _lectureList)
+            foreach (var _item in _lectureList)
             {
                 _yetAL.Add(new SelectListItem { Text = _item.ModuleCode + " " + _item.TimeSlot, Value = _item.LUI.ToString() });
             }
@@ -79,6 +80,13 @@ namespace Insight.Controllers
             _model.Lectures = _yetAL;
             //_model.Modules = _selectList;
             return View(_model);
+        }
+
+        public ActionResult RunAutoDetection()
+        {
+            experimentalVM _mod = new experimentalVM();
+            _mod._string = "<h1>Running Detection</h1>";
+            return View(_mod);
         }
         public async Task<ActionResult> Schedule()
         {
@@ -135,7 +143,7 @@ namespace Insight.Controllers
             //_model.Venues = _vlist;
             _model.Lectures = _yetAL;
             //_model.Modules = _selectList;
-            return View(_model); 
+            return View(_model);
         }
         [HttpPost]
         public ActionResult Schedule(HttpPostedFileBase zip, HttpPostedFileBase img, FormCollection collector)
@@ -148,7 +156,7 @@ namespace Insight.Controllers
             List<string> User_Id;
             string[] dateSlice = collector.GetValue("dateHoldhidden").AttemptedValue.Split(' ');
             string[] timeSlice = collector.GetValue("timeHoldhidden").AttemptedValue.Split(' ');
-            string rawDate = dateSlice[3] + "-" + dateSlice[1] + "-" + dateSlice[2] + " "+timeSlice[0]+" "+timeSlice[1];
+            string rawDate = dateSlice[3] + "-" + dateSlice[1] + "-" + dateSlice[2] + " " + timeSlice[0] + " " + timeSlice[1];
             DateTime date = new DateTime();
             date = DateTime.Parse(rawDate);
             DateTimeOffset ofset = new DateTimeOffset(date, new TimeSpan(+1, 0, 0));
@@ -174,27 +182,31 @@ namespace Insight.Controllers
                 User_Id = new List<string>();
                 Bitmap _Img = new Bitmap(img.InputStream);
 
+                //if _Img.GetPropertyItem()
+
                 #region processing the img
 
                 CoreSysFunction _coreFunction = new CoreSysFunction();
 
-                BackgroundJob.Schedule(() => User_Id.AddRange(_coreFunction.DetectAndRecognize(_Img, path, haarcascades)), ofset);
+                //var c = BackgroundJob.Schedule(() => User_Id.AddRange(_coreFunction.DetectAndRecognize(_Img, path, haarcascades)), ofset);
+                c = BackgroundJob.Schedule(() => RunAutoDetection(), DateTime.Now);
+                RecurringJob.AddOrUpdate(c.ToString(), () => RunAutoDetection(), Cron.Weekly(DayOfWeek.Monday, 5, 30));
 
-                RecurringJob.AddOrUpdate(() => projectX(path), Cron.Weekly(DayOfWeek.Monday, 21, 08));
                 #endregion
 
                 #region object to view page
 
-                Bridge _bridge = new Bridge();
-                _bridge.User_Id = new List<string>();
-                _bridge.User_Id = User_Id;
-                _bridge.dateSlice = collector.GetValue("dateHoldhidden").AttemptedValue.Split(' ');
-                _bridge.Lecture_Id = Convert.ToInt32(collector.GetValue("Lecture").AttemptedValue);
-                Session["Data"] = _bridge;
+                //Bridge _bridge = new Bridge();
+                //_bridge.User_Id = new List<string>();
+                //_bridge.User_Id = User_Id;
+                //_bridge.dateSlice = collector.GetValue("dateHoldhidden").AttemptedValue.Split(' ');
+                //_bridge.Lecture_Id = Convert.ToInt32(collector.GetValue("Lecture").AttemptedValue);
+                //Session["Data"] = _bridge;
 
                 #endregion
 
-                return RedirectToActionPermanent("ViewAttendees");
+                //return RedirectToActionPermanent("Index", "Home");
+                return Json("");
             }
             else if (zip != null && img != null)
             {
@@ -248,14 +260,14 @@ namespace Insight.Controllers
             BusinessLogicHandler _gateWay = new BusinessLogicHandler();
             _model.Lecture = new Lecture();
             _model.Lecture = _gateWay.GetLecture(int.Parse(selectedValue));
-            object[] response = {_model.Lecture.ModuleCode, _model.Lecture.VenueCode, _model.Lecture.TimeSlot };
+            object[] response = { _model.Lecture.ModuleCode, _model.Lecture.VenueCode, _model.Lecture.TimeSlot };
             return Json(response);
         }
         public ActionResult TakeAttendance(HttpPostedFileBase zip, HttpPostedFileBase img, FormCollection collector)
         {
             #region Declaring Varibles
 
-            string path = Server.MapPath("~/Uploads/");
+            string path = Server.MapPath("~/Uploads/TrainingSet/");
             string haarcascades = HttpContext.Server.MapPath("~/haarcascades/haarcascade_frontalface_default.xml");
             string theePath = "";
             BusinessLogicHandler _gateWay;
@@ -277,7 +289,7 @@ namespace Insight.Controllers
             string newPath = Server.MapPath("~/Uploads/Attendance/");
             if (Directory.Exists(newPath))
             {
-                if(Directory.Exists(newPath+_mod.ModuleCode))
+                if (Directory.Exists(newPath + _mod.ModuleCode))
                 {
                     theePath = newPath + _mod.ModuleCode.Trim() + "/" + _mod.VenueCode.Trim() + "/" + DateTime.Today.ToString("ddMMMMyyyy");
                     if (!Directory.Exists(theePath))
@@ -293,9 +305,11 @@ namespace Insight.Controllers
             }
             else
             { Directory.CreateDirectory(newPath); }
+            string imgPath = "~/Uploads/Attendance/" + _mod.ModuleCode.Trim() + "/" + _mod.VenueCode.Trim() + "/" + DateTime.Today.ToString("ddMMMMyyyy");
 
             #endregion
 
+            #region Image not null 
             if (img != null && zip == null)
             {
                 User_Id = new List<string>();
@@ -305,12 +319,16 @@ namespace Insight.Controllers
 
                 CoreSysFunction _coreFunction = new CoreSysFunction();
                 User_Id.AddRange(_coreFunction.DetectAndRecognize(_Img, path, haarcascades));
-                _coreFunction.IdentifyAndMark(haarcascades, Server.MapPath("~/Uploads/Attendance/" + _mod.ModuleCode.Trim() + "/" + _mod.VenueCode.Trim() + "/" + DateTime.Today.ToString("ddMMMMyyyy")+"/"), _mod.TimeSlot.TrimEnd(), _Img);
+                Bitmap toSave = _coreFunction.IdentifyAndMark(haarcascades, _Img);
+                toSave.Save(theePath +"/"+ _mod.VenueCode.Trim()+".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                imgPath += "/" + _mod.VenueCode.Trim() + ".jpg";
                 #endregion
 
                 #region object to view page
 
                 Bridge _bridge = new Bridge();
+                _bridge.filePath = new List<string>();
+                _bridge.filePath.Add( imgPath);
                 _bridge.User_Id = new List<string>();
                 _bridge.User_Id = User_Id;
                 _bridge.dateSlice = collector.GetValue("dateHoldhidden").AttemptedValue.Split(' ');
@@ -321,36 +339,46 @@ namespace Insight.Controllers
 
                 return RedirectToActionPermanent("ViewAttendees");
             }
+            #endregion
+
+            #region Image not null and zip not null
             else if (zip != null && img != null)
             {
                 User_Id = new List<string>();
+                Bridge _bridge = new Bridge();
+                List<string> fileNames = new List<string>();
+                _bridge.filePath = new List<string>();
                 Bitmap _Img = new Bitmap(img.InputStream);
 
                 #region processing the img
 
                 CoreSysFunction _coreFunction = new CoreSysFunction();
                 User_Id.AddRange(_coreFunction.DetectAndRecognize(_Img, path, haarcascades));
-
+                Bitmap toSave = _coreFunction.IdentifyAndMark(haarcascades, _Img);
+                toSave.Save(theePath + "/" + _mod.VenueCode.Trim() + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                _bridge.filePath.Add(imgPath +"/" + _mod.VenueCode.Trim() + ".jpg");
                 #endregion
 
                 #region Processing zip
                 Stream zipStream = zip.InputStream;
                 using (var _img = ZipFile.Read(zipStream))
                 {
-                    foreach(var file in _img.Entries)
+                    foreach (var file in _img.Entries)
                     {
                         file.Extract(theePath, ExtractExistingFileAction.OverwriteSilently);
-                        Image bmp = Image.FromFile(theePath+"/"+file.FileName);
+                        Image bmp = Image.FromFile(theePath + "/" + file.FileName);
                         Bitmap mbmp = new Bitmap(bmp);
+                        fileNames.Add(theePath + "/" + file.FileName);
                         User_Id.AddRange(_coreFunction.DetectAndRecognize(mbmp, path, haarcascades));
-                        _coreFunction.IdentifyAndMark(haarcascades, Server.MapPath(theePath), _mod.VenueCode, mbmp);
+                        toSave = _coreFunction.IdentifyAndMark(haarcascades, mbmp);
+                        try { toSave.Save(imgPath + "/" + file.FileName); _bridge.filePath.Add(imgPath += "/" + file.FileName); }
+                        catch (Exception e) {  }
+                        
                     }
                 }
                 #endregion
 
                 #region object to view
-
-                Bridge _bridge = new Bridge();
                 _bridge.User_Id = new List<string>();
                 _bridge.User_Id = User_Id.Distinct();
                 _bridge.dateSlice = collector.GetValue("dateHoldhidden").AttemptedValue.Split(' ');
@@ -361,10 +389,15 @@ namespace Insight.Controllers
 
                 return RedirectToActionPermanent("ViewAttendees");
             }
-            else if(zip != null)
+            #endregion
+
+            #region Zip not null
+            else if (zip != null)
             {
                 return RedirectToActionPermanent("ViewAttendees");
             }
+            #endregion
+
             else
             { return RedirectToActionPermanent("Index"); }
         }
@@ -409,7 +442,7 @@ namespace Insight.Controllers
             _closer.Date = "";
             for (int x = 0; x < 4; x++)
             {
-                _closer.Date += _bridge.dateSlice[x]+" ";
+                _closer.Date += _bridge.dateSlice[x] + " ";
             }
 
             #endregion
@@ -421,23 +454,12 @@ namespace Insight.Controllers
             _closer.Lecturer = _lecturer;
             #endregion
 
+            #region Assigning images
+            if (_bridge.filePath != null)
+                _closer.files = _bridge.filePath;
+            #endregion
+
             return View(_closer);
-        }
-        public void projectX(string path)
-        {
-            BackgroundJobClient client = new BackgroundJobClient();
-            RecurringJob.AddOrUpdate(() => zues(path), Cron.Minutely);
-            BackgroundJobServer serv = new BackgroundJobServer();
-        }
-        public void zues(string path)
-        {
-            BackgroundJobClient client = new BackgroundJobClient();
-            DateTime tme = new DateTime(2015, 09, 15, 21, 10, 00);
-            while(DateTime.Now > tme)
-            {
-                Directory.CreateDirectory(path + DateTime.Now.TimeOfDay.Minutes.ToString());
-            }
-            return;
         }
     }
 }

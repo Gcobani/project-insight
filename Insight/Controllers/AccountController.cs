@@ -186,7 +186,7 @@ namespace Insight.Controllers
                         Graphics g = Graphics.FromImage(extractedFace);
                         Bitmap input = _grayImageStream.ToBitmap();
                         g.DrawImage(input, 0, 0, f, GraphicsUnit.Pixel);
-                        extractedFace.Save(HttpContext.Server.MapPath("~/Uploads/"+User_Id+".jpg"), System.Drawing.Imaging.ImageFormat.Jpeg);
+                        extractedFace.Save(HttpContext.Server.MapPath("~/Uploads/TrainingSet/" + User_Id + ".jpg"), System.Drawing.Imaging.ImageFormat.Jpeg);
                         counter++;
                     }
                 }

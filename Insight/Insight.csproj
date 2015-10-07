@@ -850,6 +850,10 @@
     <Content Include="Views\Statistics\Monthly.cshtml" />
     <Content Include="Views\Help\AdminFAQ.cshtml" />
     <Content Include="Views\Help\Index.cshtml" />
+    <Content Include="Views\Attendance\RunAutoDetection.cshtml" />
+    <Content Include="Views\Statistics\time.cshtml" />
+    <Content Include="Views\Statistics\Yearly.cshtml" />
+    <Content Include="Views\Statistics\Custom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

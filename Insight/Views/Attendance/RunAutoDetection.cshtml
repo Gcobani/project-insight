@@ -1,0 +1,18 @@
+﻿@model Insight.Models.experimentalVM
+@{
+    ViewBag.Title = "RunAutoDetection";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<br />
+<paper-material elevation="3" class="paperMaterial wider">
+    <br /><br /><br />
+    <div class="row pad-me">
+        @Html.Raw(Model._string)
+    </div> 
+    <br /><br /><br />
+</paper-material>
+<script>
+    alert("this ran");
+</script>
+

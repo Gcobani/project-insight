@@ -27,6 +27,7 @@ namespace Insight.Models
         public IEnumerable<String> User_Id { get; set; }
         public int Lecture_Id { get; set; }
         public string[] dateSlice { get; set; }
+        public List<string> filePath { get; set; }
     }
 
     public class CloserViewModel
@@ -35,6 +36,7 @@ namespace Insight.Models
         public Lecture Lecture { get; set; }
         public string Date { get; set; }
         public Lecturer Lecturer { get; set; }
+        public List<string> files { get; set; }
     }
 
     public class MonthlyStats
@@ -42,5 +44,10 @@ namespace Insight.Models
         public IEnumerable<SelectListItem> Modules { get; set; }
 
         public string Month { get; set; }
+    }
+
+    public class experimentalVM
+    {
+        public string _string { get; set; }
     }
 }

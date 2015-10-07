@@ -1,18 +1,18 @@
 ﻿@model Insight.Models.MonthlyStats
 @{
-    ViewBag.Title = "Monthly";
+    ViewBag.Title = "Yearly";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
 <br />
-<paper-material elevation="3" class="wider paperMaterial">
+<paper-material class="wider paperMaterial">
+
     <div class="row">
-        <div style="text-align:center"><h1>Monthly Attendance Statistics</h1></div>
+        <div style="text-align:center"><h1>Yearly Attendance Statistics</h1></div>
         <hr />
     </div>
-    <div class="row pad-me">
-        @using (Html.BeginForm("MonthlyQuery", "Statistics", FormMethod.Post, new { }))
-        {
+
+    @using (Html.BeginForm("Yearly", "Statistics"))
+    {
         <script src="~/Scripts/jquery-1.10.2.min.js"></script>
         <link rel="import" href="~/Components/paper-date-picker-master/paper-date-picker-dialog.html">
         <div class="form-horizontal container">
@@ -30,7 +30,7 @@
                                         <paper-button dialog-confirm>OK</paper-button>
                                     </div>
                                 </paper-dialog>
-                                <label style="font-size:40px;">{{dateFormat(date, 'MMMM')}}</label>
+                                <label style="font-size:40px;">{{dateFormat(date, 'YYYY')}}</label>
                             </section>
                         </template>
                     </td>
@@ -56,7 +56,6 @@
             </script>
 
         </div>
-        <div style="height:300px;"></div>
-        }
-    </div>
+    }
 </paper-material>
+

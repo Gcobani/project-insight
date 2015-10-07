@@ -42,11 +42,11 @@
                             {
                                 foreach (var item in Model.Students)
                                 {
-                            <tr>
-                                <td>@item.StudentNumber</td>
-                                <td>@item.Surname</td>
-                                <td>@item.Name</td>
-                            </tr>
+                                    <tr>
+                                        <td>@item.StudentNumber</td>
+                                        <td>@item.Surname</td>
+                                        <td>@item.Name</td>
+                                    </tr>
                                 }
                             }
                         }
@@ -55,9 +55,17 @@
                 <div>
                     <div style="text-align:center"><h1>Submitted Image(s)</h1></div>
                     <hr />
+                    <div class="button-pad">
+                        @{
+                            foreach (string file in Model.files)
+                            {
+                                <img src="@Url.Content(file)" alt="Alternate Text" />
+                            }
+                        }
+                    </div>
                 </div>
                 <div>
-                    <div style="text-align:center;"><h1>Summary for @Model.Lecture.ModuleCode</h1></div> 
+                    <div style="text-align:center;"><h1>Summary for @Model.Lecture.ModuleCode</h1></div>
                     <hr />
                 </div>
             </iron-pages>
